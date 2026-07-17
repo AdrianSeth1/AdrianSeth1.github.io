@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aryamaan Seth | Neuroscience grad building local-first AI</title>
+<meta name="description" content="Aryamaan Seth, neuroscience grad and builder of local-first AI tools. Projects, research, and writing.">
+<meta name="author" content="Aryamaan Seth">
+<meta name="theme-color" content="#06060b">
+<link rel="canonical" href="https://adrianseth1.github.io/">
+
+<!-- Favicons -->
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+<!-- Social preview (Open Graph + Twitter) -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://adrianseth1.github.io/">
+<meta property="og:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
+<meta property="og:description" content="Projects, research, and writing. prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
+<meta property="og:image" content="https://adrianseth1.github.io/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
+<meta name="twitter:description" content="Projects, research, and writing. prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/og-image.png">
+
+<!-- Inter font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #060609;
+    --card: rgba(255,255,255,0.035);
+    --card-border: rgba(255,255,255,0.09);
+    --text: #edeef4;
+    --muted: #9a9aad;
+    --accent: #7c6cff;
+    --accent-2: #4dd6c1;
+    --radius: 16px;
+    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; overflow-x: hidden; }
+  ::selection { background: var(--accent); color: #fff; }
+  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 4px; }
+
+  /* animated neuron canvas */
+  #neural { position: fixed; inset: 0; z-index: 0; display: block; }
+  .vignette {
+    position: fixed; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(120% 90% at 50% -10%, transparent 40%, rgba(6,6,9,0.55) 100%),
+                linear-gradient(180deg, rgba(6,6,9,0.35), rgba(6,6,9,0.15) 30%, rgba(6,6,9,0.6));
+  }
+  main, nav, footer { position: relative; z-index: 2; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 18px 6vw; backdrop-filter: blur(14px); background: rgba(6,6,9,0.5); border-bottom: 1px solid rgba(255,255,255,0.06); }
+  nav .logo { font-weight: 700; letter-spacing: 0.04em; font-size: 1.05rem; }
+  nav .logo span { color: var(--accent); }
+  nav ul { display: flex; gap: 28px; list-style: none; }
+  nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; transition: color 0.25s; }
+  nav a:hover, nav a.active { color: var(--text); }
+  nav a.active { position: relative; }
+  nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
+  /* mobile menu toggle */
+  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; width: 42px; height: 42px; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 4px auto; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
+  nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+  nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
+  nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; }
+  .hero .eyebrow { color: var(--accent-2); font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; opacity: 0; animation: rise 0.8s ease 0.1s forwards; }
+  .hero h1 { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 1.07; font-weight: 800; letter-spacing: -0.02em; max-width: 16ch; opacity: 0; animation: rise 0.8s ease 0.25s forwards; text-shadow: 0 2px 40px rgba(0,0,0,0.5); }
+  .hero h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero p { margin-top: 24px; max-width: 56ch; color: #c2c2d0; font-size: 1.12rem; opacity: 0; animation: rise 0.8s ease 0.4s forwards; }
+  .hero .cta { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: rise 0.8s ease 0.55s forwards; }
+  .btn { padding: 13px 26px; border-radius: 999px; font-size: 0.95rem; text-decoration: none; font-weight: 600; transition: transform 0.25s, box-shadow 0.25s; }
+  .btn-primary { background: linear-gradient(90deg, var(--accent), #9b8cff); color: #fff; box-shadow: 0 8px 30px rgba(124,108,255,0.35); }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(124,108,255,0.5); }
+  .btn-ghost { border: 1px solid var(--card-border); color: var(--text); background: rgba(6,6,9,0.3); }
+  .btn-ghost:hover { transform: translateY(-3px); background: var(--card); }
+  @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; animation: bob 2.2s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translate(-50%,0);} 50% { transform: translate(-50%,10px);} }
+
+  section { padding: 110px 6vw; max-width: 1200px; margin: 0 auto; }
+  .section-label { color: var(--accent-2); font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
+  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
+  .section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 44px; }
+
+  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
+  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 30px; transition: transform 0.35s cubic-bezier(.2,.7,.3,1), border-color 0.35s; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(6px); }
+  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(124,108,255,0.14), transparent 60%); opacity: 0; transition: opacity 0.35s; pointer-events: none; }
+  .card:hover::before { opacity: 1; }
+  .card:hover { transform: translateY(-6px); border-color: rgba(124,108,255,0.45); }
+  .card .kicker { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; }
+  .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
+  .card p { color: var(--muted); font-size: 0.95rem; }
+  .tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 0.75rem; padding: 4px 12px; border-radius: 999px; background: rgba(124,108,255,0.12); color: #b6acff; border: 1px solid rgba(124,108,255,0.25); }
+  .tag.teal { background: rgba(77,214,193,0.1); color: #7fe6d5; border-color: rgba(77,214,193,0.25); }
+  .card a.link { display: inline-block; margin-top: auto; padding-top: 18px; color: var(--accent-2); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
+  .card a.link:hover { text-decoration: underline; }
+  /* case study expander */
+  .case { margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 8px; }
+  .case > summary { cursor: pointer; list-style: none; color: var(--accent-2); font-size: 0.85rem; font-weight: 600; padding: 6px 0; display: flex; align-items: center; gap: 6px; }
+  .case > summary::-webkit-details-marker { display: none; }
+  .case > summary::before { content: "+"; font-size: 1.15rem; line-height: 1; display: inline-block; transition: transform 0.25s; }
+  .case[open] > summary::before { transform: rotate(45deg); }
+  .case .case-body { font-size: 0.9rem; color: var(--muted); padding: 6px 0 4px; }
+  .case .case-body p { margin-bottom: 10px; }
+  .case .case-body strong { color: #c3b9ff; font-weight: 600; }
+
+  .timeline { position: relative; padding-left: 34px; }
+  .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 2px; }
+  .tl-item { position: relative; padding-bottom: 42px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before { content: ""; position: absolute; left: -33px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
+  .tl-item .term { color: var(--accent-2); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .tl-item h3 { font-size: 1.15rem; margin: 6px 0; }
+  .tl-item p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
+  .tl-item a.link { display: inline-block; margin-top: 10px; color: var(--accent-2); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
+  .tl-item a.link:hover { text-decoration: underline; }
+
+  .about-wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: start; }
+  .about-wrap p { color: var(--muted); margin-bottom: 16px; }
+  .about-wrap h4 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  footer { padding: 60px 6vw; text-align: center; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.06); }
+  footer .socials { margin-bottom: 16px; display: flex; justify-content: center; gap: 24px; }
+  footer .socials a { color: var(--muted); text-decoration: none; transition: color 0.25s; }
+  footer .socials a:hover { color: var(--text); }
+
+  @media (max-width: 760px) {
+    .about-wrap { grid-template-columns: 1fr; gap: 32px; }
+    .nav-toggle { display: block; }
+    nav ul {
+      position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 300px);
+      flex-direction: column; gap: 8px; padding: 90px 32px;
+      background: rgba(8,8,14,0.96); backdrop-filter: blur(18px);
+      border-left: 1px solid rgba(255,255,255,0.08);
+      transform: translateX(100%); transition: transform 0.35s cubic-bezier(.2,.7,.3,1);
+    }
+    nav.open ul { transform: translateX(0); }
+    nav ul li { width: 100%; }
+    nav ul a { display: block; font-size: 1.1rem; padding: 10px 0; }
+  }
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } #neural { display: none; } }
+</style>
+</head>
+<body>
+
+<canvas id="neural" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="logo">arya<span>.</span></div>
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul id="nav-menu">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<main>
+  <header class="hero">
+    <div class="eyebrow">Neuroscience Grad · AI Builder</div>
+    <h1>Hi, I'm Arya.<br>I study the brain and <span class="grad">build AI tools.</span></h1>
+    <p>Baylor neuroscience grad who ships local-first AI. One of my projects, a voice lecture assistant, is being used in a professor's classroom right now. I like building tools that people actually use and that are clear about their own limits.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#projects">See my work</a>
+      <a class="btn btn-ghost" href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+      <a class="btn btn-ghost" href="https://github.com/AdrianSeth1" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="scroll-hint">scroll</div>
+  </header>
+
+  <section id="projects">
+    <div class="section-label reveal">Projects</div>
+    <h2 class="reveal">Things I've built</h2>
+    <p class="section-intro reveal">Full-stack projects, mostly built around local-first AI. Code is on GitHub.</p>
+    <div class="grid">
+
+      <div class="card reveal">
+        <div class="kicker">AI · Automation</div>
+        <h3>AutoApply</h3>
+        <p>A local-first job-application agent that drives a browser to discover roles, score fit, and draft tailored resumes and cover letters with local LLMs. Every actual submit stays gated behind a human decision. Built around auditable agent traces and a provider-agnostic LLM layer.</p>
+        <div class="tags"><span class="tag">Playwright</span><span class="tag teal">Ollama</span><span class="tag teal">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">LLM agents</span></div>
+        <a class="link" href="https://github.com/AdrianSeth1/auto-apply" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">AI · Audio · In classroom use</div>
+        <h3>prof-ai</h3>
+        <p>A voice-interactive lecture assistant that transcribes class live, spots gaps in the explanation, and answers questions out loud using the professor's own course materials. It runs entirely on local hardware, so there are no per-query costs and no student data ever leaves the room. <strong style="color:#c3b9ff;">A Baylor professor is using it in class right now, and the university is looking at wider adoption.</strong></p>
+        <div class="tags"><span class="tag">Python</span><span class="tag teal">Ollama</span><span class="tag teal">ChromaDB</span><span class="tag">faster-whisper</span><span class="tag teal">Piper TTS</span><span class="tag">RAG</span></div>
+        <details class="case">
+          <summary>Read the story</summary>
+          <div class="case-body">
+            <p><strong>The problem.</strong> A cloud AI assistant in a live classroom means streaming students' voices and a professor's unpublished materials to someone else's servers. For most instructors that's a non-starter, and rightly so.</p>
+            <p><strong>The approach.</strong> Everything runs locally. Audio is transcribed on-device with faster-whisper, the professor's own slides and readings become the knowledge base in ChromaDB, a local model answers through Ollama, and Piper speaks the reply back. Nothing leaves the machine, so there was no budget or procurement barrier to adoption.</p>
+            <p><strong>The build.</strong> I designed it as a lecture / question / processing state machine and iterated directly with the professor using it, adding gap detection and a multi-turn conversation mode along the way.</p>
+            <p><strong>The outcome.</strong> It's in active classroom use, and the university is weighing wider adoption.</p>
+          </div>
+        </details>
+        <a class="link" href="https://github.com/AdrianSeth1/prof-ai" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+      <div class="card reveal">
+        <div class="kicker">AI · Image editing</div>
+        <h3>Kitchen Remix</h3>
+        <p>Take a photo of a real kitchen and preview remodel options (cabinets, countertops, flooring, paint) as photorealistic edits, before spending a dollar. Runs FLUX.1 Kontext locally on an RTX 4090, so photos never leave the machine. It sorts every edit into "scope tiers" that say plainly where the model is reliable and where it's guessing.</p>
+        <div class="tags"><span class="tag">FLUX.1 Kontext</span><span class="tag">React</span><span class="tag teal">FastAPI</span><span class="tag teal">CUDA</span></div>
+        <details class="case">
+          <summary>Read the story</summary>
+          <div class="case-body">
+            <p><strong>The problem.</strong> Most people remodeling a kitchen can't picture the result, and designer renders cost time and money. I built this for my parents, who wanted to compare a few directions before committing.</p>
+            <p><strong>The hard part.</strong> AI image tools will cheerfully generate anything, including changes the model has no basis for. A confident render of a wall that isn't there invites a real decision based on a guess. So the design question wasn't "what can the model do?" but "what can it do <strong>reliably</strong>, and how do we label the rest?"</p>
+            <p><strong>The answer.</strong> Every edit is sorted into scope tiers. <strong>Core</strong> edits (finish swaps, object removal) need no information the photo doesn't already contain, so they're treated as dependable. <strong>Experimental</strong> edits (moving objects, opening walls) invent geometry, so they're labeled "not dimensionally accurate." A reused random seed across an A/B set keeps the comparison fair by changing only the finish, not the scene.</p>
+            <p><strong>Why it's local.</strong> FLUX.1 Kontext runs on a home RTX 4090, loaded once and kept warm in VRAM, so photos never leave the machine and inference stays fast.</p>
+          </div>
+        </details>
+        <a class="link" href="https://github.com/AdrianSeth1/Kitchen-remix" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="section-label reveal">Research &amp; Writing</div>
+    <h2 class="reveal">Selected academic work</h2>
+    <p class="section-intro reveal">Neuroscience research and synthesis: designing studies, reading primary literature, and thinking about where the field is going.</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="term">Research Proposal · Presented to the National Society in Neuroscience</div>
+        <h3>Training-Induced Occipital Recruitment in Late-Blind Adults</h3>
+        <p>A full fMRI study proposal testing whether eight weeks of multisensory navigation training can re-engage the visual cortex in adults who lost sight after childhood. It includes hypotheses, a GPower-based power analysis, a sensory-substitution apparatus design, an MRI acquisition and preprocessing protocol, and a full statistical plan, all built on the cross-modal plasticity literature.</p>
+        <a class="link" href="docs/late-blind-plasticity-proposal.pdf" target="_blank" rel="noopener">Read the proposal (PDF) →</a>
+      </div>
+      <div class="tl-item reveal">
+        <div class="term">Capstone · NSC 4330, Technology &amp; the Nervous System</div>
+        <h3>From Affect to Merge: How Technology Is Rewiring the Brain</h3>
+        <p>A semester-long synthesis of about 20 papers, traced along one arc of technology moving from the outside in: affecting behavior, exploiting reward circuits, reading the brain, stimulating it, and finally merging with it (brain-spine interfaces, hippocampal prosthetics, the MICrONS connectome). It closes on the open questions around neural-data rights and the gap between predicting behavior and consciousness.</p>
+        <a class="link" href="docs/technology-and-the-nervous-system.pdf" target="_blank" rel="noopener">View the capstone (PDF) →</a>
+      </div>
+      <div class="tl-item reveal">
+        <div class="term">Journal Club · Neural Stimulation</div>
+        <h3>TMS &amp; Visual Working Memory</h3>
+        <p>Analysis of a cerebellar TMS study (Viñas-Guasch et al., 2023) showing that disrupting the left inferior cerebellum selectively impairs visual working memory but leaves verbal memory intact. I broke down the fMRI-guided targeting, the double-dissociation design, the statistics, and where the study's small sample limits its claims.</p>
+        <a class="link" href="docs/tms-visual-working-memory.pdf" target="_blank" rel="noopener">Read the analysis (PDF) →</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience">
+    <div class="section-label reveal">Experience</div>
+    <h2 class="reveal">Where I've worked</h2>
+    <p class="section-intro reveal">A mix of AI, startup operations, and client-facing work. Usually I'm the person who translates between the technical and the non-technical.</p>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="term">May 2026 to Present</div>
+        <h3>AI Model Evaluator, Mercor <span style="color:var(--muted);font-weight:400;">(contract)</span></h3>
+        <p>Evaluate LLM outputs for reasoning accuracy, factual consistency, and instruction-following across technical and generalist domains using structured rubrics, and document failure modes and edge cases.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="term">Jan 2024 to Oct 2025</div>
+        <h3>Operations Analyst &amp; Startup Generalist, SDS <span style="color:var(--muted);font-weight:400;">(B2B SaaS)</span></h3>
+        <p>Cross-functional role spanning client onboarding, analytics, and product ops, often scoping the work before doing it. Redesigned onboarding end to end, cutting time-to-value by around 30%, and built Looker Studio dashboards that sales and product used to prioritize.</p>
+      </div>
+      <div class="tl-item reveal">
+        <div class="term">2022 to 2023</div>
+        <h3>Therapy Technician &amp; Freelance Web Consultant</h3>
+        <p>Direct patient care in an inpatient rehab hospital, contributing to a roughly 32% rise in unit satisfaction. Alongside that, freelance work as the sole technical contact for small-business clients, building WordPress sites and running Google Ads and SEO.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-label reveal">About</div>
+    <h2 class="reveal">A bit about me</h2>
+    <div class="about-wrap">
+      <div class="reveal">
+        <p>I'm a Baylor neuroscience grad (B.S., 2026, Presidential Merit Scholar) who codes. Most of what I build uses AI to make hard things like studying, remodeling, and job-hunting a little less painful, and I try to be upfront about where those tools fall short.</p>
+        <p>I like running models locally and keeping a human in charge of the decisions that matter. Shipping isn't the end for me; I also teach the people around me to use what I build. I want to understand what's actually happening under the hood, whether that's a transformer or an action potential.</p>
+      </div>
+      <div class="reveal">
+        <h4>Tools &amp; skills</h4>
+        <div class="skills">
+          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span>
+          <span class="tag teal">FastAPI</span><span class="tag">React</span><span class="tag teal">Docker</span>
+          <span class="tag teal">Ollama</span><span class="tag">ChromaDB</span><span class="tag teal">RAG</span>
+          <span class="tag">Whisper / TTS</span><span class="tag teal">Model evals</span>
+          <span class="tag">Looker Studio</span><span class="tag teal">Neuroscience</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-label reveal">Contact</div>
+    <h2 class="reveal">Let's talk</h2>
+    <p class="reveal" style="color: var(--muted); max-width: 58ch;">
+      Based in Dallas, TX and open to relocation. The fastest way to reach me is by email:
+      <a href="mailto:aryamaanseth@gmail.com" style="color: var(--accent-2); text-decoration: none;">aryamaanseth@gmail.com</a>. You can also find me on <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">LinkedIn</a>, my code on <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">GitHub</a>, or grab my <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">résumé</a>.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <div class="socials">
+    <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+    <a href="mailto:aryamaanseth@gmail.com">Email</a>
+  </div>
+  © 2026 Aryamaan Seth · Built by hand.
+</footer>
+
+<script>
+  // ---------- scroll reveal ----------
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ---------- mobile nav ----------
+  const nav = document.getElementById('nav');
+  const toggle = nav.querySelector('.nav-toggle');
+  const setNav = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', open); };
+  toggle.addEventListener('click', () => setNav(!nav.classList.contains('open')));
+  nav.querySelectorAll('#nav-menu a').forEach(a => a.addEventListener('click', () => setNav(false)));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setNav(false); });
+
+  // ---------- scrollspy (active nav link) ----------
+  const navLinks = [...nav.querySelectorAll('#nav-menu a')];
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
+
+  // ---------- card cursor glow ----------
+  document.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('pointermove', e => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+    });
+  });
+
+  // ---------- animated neuron constellation ----------
+  (function () {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const canvas = document.getElementById('neural');
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr, nodes = [], pulses = [];
+    const mouse = { x: -9999, y: -9999 };
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = canvas.width = innerWidth * dpr;
+      h = canvas.height = innerHeight * dpr;
+      canvas.style.width = innerWidth + 'px';
+      canvas.style.height = innerHeight + 'px';
+      const target = Math.min(110, Math.floor((innerWidth * innerHeight) / 14000));
+      nodes = [];
+      for (let i = 0; i < target; i++) {
+        nodes.push({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.18 * dpr,
+          vy: (Math.random() - 0.5) * 0.18 * dpr,
+          r: (Math.random() * 1.6 + 0.8) * dpr
+        });
+      }
+    }
+
+    const LINK = 130; // px in css space
+    function step() {
+      ctx.clearRect(0, 0, w, h);
+      const link = LINK * dpr;
+      const mx = mouse.x * dpr, my = mouse.y * dpr;
+
+      // move
+      const R = 150 * dpr;          // cursor influence radius
+      for (const n of nodes) {
+        n.x += n.vx; n.y += n.vy;
+        if (n.x < 0 || n.x > w) n.vx *= -1;
+        if (n.y < 0 || n.y > h) n.vy *= -1;
+        n.x = Math.max(0, Math.min(w, n.x));
+        n.y = Math.max(0, Math.min(h, n.y));
+        // cursor gently pushes nearby nodes away (parts around the pointer)
+        const dxm = n.x - mx, dym = n.y - my;
+        const dm = Math.hypot(dxm, dym);
+        if (dm < R && dm > 0.1) {
+          const force = (1 - dm / R) * 2.2 * dpr;   // stronger when closer
+          n.x += (dxm / dm) * force;
+          n.y += (dym / dm) * force;
+        }
+      }
+
+      // synapses
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i], b = nodes[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.hypot(dx, dy);
+          if (d < link) {
+            const t = 1 - d / link;
+            ctx.strokeStyle = 'rgba(124,108,255,' + (t * 0.28).toFixed(3) + ')';
+            ctx.lineWidth = dpr * 0.6;
+            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+          }
+        }
+      }
+
+      // neurons
+      for (const n of nodes) {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(180,210,255,0.75)';
+        ctx.fill();
+      }
+
+      // occasional traveling pulse along a link
+      if (Math.random() < 0.04 && nodes.length > 2) {
+        const a = nodes[(Math.random() * nodes.length) | 0];
+        let best = null, bd = link;
+        for (const b of nodes) {
+          if (b === a) continue;
+          const d = Math.hypot(a.x - b.x, a.y - b.y);
+          if (d < bd) { bd = d; best = b; }
+        }
+        if (best) pulses.push({ a, b: best, t: 0 });
+      }
+      for (let i = pulses.length - 1; i >= 0; i--) {
+        const p = pulses[i];
+        p.t += 0.03;
+        if (p.t >= 1) { pulses.splice(i, 1); continue; }
+        const x = p.a.x + (p.b.x - p.a.x) * p.t;
+        const y = p.a.y + (p.b.y - p.a.y) * p.t;
+        ctx.beginPath();
+        ctx.arc(x, y, dpr * 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(77,214,193,' + (1 - p.t).toFixed(2) + ')';
+        ctx.fill();
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    addEventListener('resize', resize);
+    addEventListener('pointermove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+    addEventListener('pointerleave', () => { mouse.x = -9999; mouse.y = -9999; });
+    resize();
+    step();
+  })();
+</script>
+</body>
+</html>
