@@ -256,12 +256,12 @@
   .section-intro { font-size: 1.02rem; margin-bottom: 52px; }
 
   .grid { grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: stretch; }
-  .grid > .card { grid-column: span 4; min-height: 390px; }
+  .grid > .card { grid-column: span 12; min-height: 270px; }
   .grid > .card:nth-child(2) {
-    grid-column: span 4;
-    min-height: 390px;
+    grid-column: span 12;
+    min-height: 270px;
     padding-right: 32px;
-    padding-top: 76px;
+    padding-top: 32px;
     background:
       radial-gradient(34rem 26rem at 88% 30%, rgba(89,220,197,0.12), transparent 65%),
       linear-gradient(135deg, rgba(27,28,44,0.88), rgba(14,16,24,0.74));
@@ -287,7 +287,7 @@
   }
   .card::after { pointer-events: none; }
   .card h3 { font-size: 1.48rem; letter-spacing: -0.025em; }
-  .card p { line-height: 1.72; }
+  .card p { line-height: 1.72; max-width: 82ch; }
   .card a.link { text-decoration: none; width: fit-content; }
 
   .timeline { padding-left: 42px; }
