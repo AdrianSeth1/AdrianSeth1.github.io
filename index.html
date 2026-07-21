@@ -396,15 +396,15 @@
       <div class="card reveal">
         <div class="kicker">AI · Developer Tools</div>
         <h3>Apoapsis Harness</h3>
-        <p>A local-first context, research, and verification harness that wraps AI coding agents in a bounded, auditable workflow. A typed agent protocol with no shell or arbitrary command access, deterministic task/spec/plan approval, and risk-based routing that escalates uncertain changes to a human instead of letting a model decide alone.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag teal">SQLite</span><span class="tag">Git</span><span class="tag teal">Ollama</span><span class="tag">CLI</span></div>
+        <p>A local-first harness for AI coding agents built around a simple split: local models are cheap and private but weak at planning and architecture; frontier models are strong at exactly that but expensive and mean shipping your code off-machine. The harness keeps routine search, edits, and verification local, and hands only the hard planning problems to a frontier model — cutting token spend sharply while keeping quality close to an all-frontier workflow, and the codebase itself never leaves the machine.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag teal">SQLite</span><span class="tag">Git</span><span class="tag teal">Ollama</span><span class="tag">ripgrep</span></div>
         <details class="case">
           <summary>Read the story</summary>
           <div class="case-body">
-            <p><strong>The problem.</strong> AI coding agents are useful right up until you give one shell access and it does something you didn't ask for. Most harnesses either lock an agent down until it's useless or trust it with a blast radius no one would sign off on.</p>
-            <p><strong>The approach.</strong> Bound the agent, not the ambition. The coding-agent protocol is typed and shell-free — literal search, bounded reads, diff inspection, and incremental patches, nothing else. Every task moves through a deterministic spec/plan/verify workflow with fail-closed constraint enforcement, so hard requirements can't quietly get dropped.</p>
-            <p><strong>The build.</strong> Risk routing decides, per change, whether it's safe to run local-only, needs a frontier model, or should stop and wait for a human — each path gets its own budget. Everything is logged to an append-only audit trail, and an offline operator UI (task intake, plan approval, human-review queue) runs entirely locally with no CDN or third-party calls.</p>
-            <p><strong>The outcome.</strong> A working harness that treats "the agent decided it was done" as insufficient evidence — the same human-in-the-loop discipline behind AutoApply's own review gate, generalized into reusable infrastructure for any AI coding agent.</p>
+            <p><strong>The problem.</strong> Frontier models are genuinely better at planning and architecture — local models are consistently worse at both. But routing everything through a frontier model is expensive per token and means shipping your whole codebase off-machine just to make a routine edit.</p>
+            <p><strong>The approach.</strong> Split the work by what each tier is actually good at. Local models via Ollama handle the bulk of it directly — search, reads, diffs, incremental patches — inside a typed, shell-free protocol. Only hard planning and architecture problems get escalated, and even then the frontier model doesn't see the repo: it gets a bounded, immutable planning package and hands back a plan, not a patch.</p>
+            <p><strong>The build.</strong> Deterministic risk routing decides per task whether it stays local-only, needs a frontier planning pass, or should stop for human review — each path with its own budget. Task state, worktrees, and ripgrep-based context retrieval all run locally in SQLite and Git, with a full audit trail.</p>
+            <p><strong>The outcome.</strong> Token usage drops sharply versus an all-frontier workflow, quality stays close to it, and the codebase never leaves the machine — the frontier model only earns its (expensive) keep on the one thing it's actually better at.</p>
           </div>
         </details>
         <a class="link" href="https://github.com/AdrianSeth1/Apoapsis-Harness-" target="_blank" rel="noopener">View on GitHub →</a>
