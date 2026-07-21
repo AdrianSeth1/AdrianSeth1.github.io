@@ -18,13 +18,13 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adrianseth1.github.io/">
 <meta property="og:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
-<meta property="og:description" content="Projects, research, and writing. prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
+<meta property="og:description" content="Projects, research, and writing. Apoapsis Harness, prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
 <meta property="og:image" content="https://adrianseth1.github.io/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
-<meta name="twitter:description" content="Projects, research, and writing. prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
+<meta name="twitter:description" content="Projects, research, and writing. Apoapsis Harness, prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
 <meta name="twitter:image" content="https://adrianseth1.github.io/og-image.png">
 
 <!-- Inter font -->
@@ -392,6 +392,23 @@
     <h2 class="reveal">Things I've built</h2>
     <p class="section-intro reveal">Full-stack projects, mostly built around local-first AI. Code is on GitHub.</p>
     <div class="grid">
+
+      <div class="card reveal">
+        <div class="kicker">AI · Developer Tools</div>
+        <h3>Apoapsis Harness</h3>
+        <p>A local-first context, research, and verification harness that wraps AI coding agents in a bounded, auditable workflow. A typed agent protocol with no shell or arbitrary command access, deterministic task/spec/plan approval, and risk-based routing that escalates uncertain changes to a human instead of letting a model decide alone.</p>
+        <div class="tags"><span class="tag">Python</span><span class="tag teal">SQLite</span><span class="tag">Git</span><span class="tag teal">Ollama</span><span class="tag">CLI</span></div>
+        <details class="case">
+          <summary>Read the story</summary>
+          <div class="case-body">
+            <p><strong>The problem.</strong> AI coding agents are useful right up until you give one shell access and it does something you didn't ask for. Most harnesses either lock an agent down until it's useless or trust it with a blast radius no one would sign off on.</p>
+            <p><strong>The approach.</strong> Bound the agent, not the ambition. The coding-agent protocol is typed and shell-free — literal search, bounded reads, diff inspection, and incremental patches, nothing else. Every task moves through a deterministic spec/plan/verify workflow with fail-closed constraint enforcement, so hard requirements can't quietly get dropped.</p>
+            <p><strong>The build.</strong> Risk routing decides, per change, whether it's safe to run local-only, needs a frontier model, or should stop and wait for a human — each path gets its own budget. Everything is logged to an append-only audit trail, and an offline operator UI (task intake, plan approval, human-review queue) runs entirely locally with no CDN or third-party calls.</p>
+            <p><strong>The outcome.</strong> A working harness that treats "the agent decided it was done" as insufficient evidence — the same human-in-the-loop discipline behind AutoApply's own review gate, generalized into reusable infrastructure for any AI coding agent.</p>
+          </div>
+        </details>
+        <a class="link" href="https://github.com/AdrianSeth1/Apoapsis-Harness-" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
 
       <div class="card reveal">
         <div class="kicker">AI · Automation</div>
