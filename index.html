@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aryamaan Seth | Neuroscience grad building local-first AI</title>
-<meta name="description" content="Aryamaan Seth, neuroscience grad and builder of local-first AI tools. Projects, research, and writing.">
+<title>Aryamaan Seth | Projects, research, and experience</title>
+<meta name="description" content="I'm Aryamaan Seth, a Baylor neuroscience graduate in Dallas. I evaluate AI models, build software, and write about neuroscience.">
 <meta name="author" content="Aryamaan Seth">
 <meta name="theme-color" content="#06060b">
 <link rel="canonical" href="https://adrianseth1.github.io/">
@@ -17,15 +17,15 @@
 <!-- Social preview (Open Graph + Twitter) -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adrianseth1.github.io/">
-<meta property="og:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
-<meta property="og:description" content="Projects, research, and writing. Apoapsis Harness, prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
-<meta property="og:image" content="https://adrianseth1.github.io/og-image.png">
+<meta property="og:title" content="Aryamaan Seth | Projects, research, and experience">
+<meta property="og:description" content="A Baylor neuroscience graduate who evaluates AI models and builds software in Dallas.">
+<meta property="og:image" content="https://adrianseth1.github.io/og-image-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aryamaan Seth | Neuroscience grad building local-first AI">
-<meta name="twitter:description" content="Projects, research, and writing. Apoapsis Harness, prof-ai (in classroom use), Kitchen Remix, and AutoApply.">
-<meta name="twitter:image" content="https://adrianseth1.github.io/og-image.png">
+<meta name="twitter:title" content="Aryamaan Seth | Projects, research, and experience">
+<meta name="twitter:description" content="A Baylor neuroscience graduate who evaluates AI models and builds software in Dallas.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/og-image-v2.png">
 
 <!-- Inter font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -376,9 +376,9 @@
 
 <main>
   <header class="hero">
-    <div class="eyebrow">Neuroscience Grad · AI Builder</div>
-    <h1>Hi, I'm Arya.<br>I study the brain and <span class="grad">build AI tools.</span></h1>
-    <p>Baylor neuroscience grad who ships local-first AI. One of my projects, a voice lecture assistant, is being used in a professor's classroom right now. I like building tools that people actually use and that are clear about their own limits.</p>
+    <div class="eyebrow">Dallas · Neuroscience · Software</div>
+    <h1>I studied neuroscience.<br><span class="grad">I also build software.</span></h1>
+    <p>I'm Arya, a 2026 Baylor graduate and AI model evaluator. Most of my projects started with a problem close to home: a professor trying AI in class, my parents planning a remodel, or me looking for work.</p>
     <div class="cta">
       <a class="btn btn-primary" href="#projects">See my work</a>
       <a class="btn btn-ghost" href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
@@ -389,22 +389,20 @@
 
   <section id="projects">
     <div class="section-label reveal">Projects</div>
-    <h2 class="reveal">Things I've built</h2>
-    <p class="section-intro reveal">Full-stack projects, mostly built around local-first AI. Code is on GitHub.</p>
+    <h2 class="reveal">Projects</h2>
+    <p class="section-intro reveal">Four experiments that became working software. The code is public, including the rough edges.</p>
     <div class="grid">
 
       <div class="card reveal">
         <div class="kicker">AI · Developer Tools</div>
         <h3>Apoapsis Harness</h3>
-        <p>A local-first harness for AI coding agents built around a simple split: local models are cheap and private but weak at planning and architecture; frontier models are strong at exactly that but expensive and mean shipping your code off-machine. The harness keeps routine search, edits, and verification local, and hands only the hard planning problems to a frontier model — cutting token spend sharply while keeping quality close to an all-frontier workflow, and the codebase itself never leaves the machine.</p>
+        <p>An experiment in splitting coding-agent work between local and hosted models. Local models handle routine search, edits, and checks; harder planning can be sent out with only the context it needs.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag teal">SQLite</span><span class="tag">Git</span><span class="tag teal">Ollama</span><span class="tag">ripgrep</span></div>
         <details class="case">
-          <summary>Read the story</summary>
+          <summary>Why I built it</summary>
           <div class="case-body">
-            <p><strong>The problem.</strong> Frontier models are genuinely better at planning and architecture — local models are consistently worse at both. But routing everything through a frontier model is expensive per token and means shipping your whole codebase off-machine just to make a routine edit.</p>
-            <p><strong>The approach.</strong> Split the work by what each tier is actually good at. Local models via Ollama handle the bulk of it directly — search, reads, diffs, incremental patches — inside a typed, shell-free protocol. Only hard planning and architecture problems get escalated, and even then the frontier model doesn't see the repo: it gets a bounded, immutable planning package and hands back a plan, not a patch.</p>
-            <p><strong>The build.</strong> Deterministic risk routing decides per task whether it stays local-only, needs a frontier planning pass, or should stop for human review — each path with its own budget. Task state, worktrees, and ripgrep-based context retrieval all run locally in SQLite and Git, with a full audit trail.</p>
-            <p><strong>The outcome.</strong> Token usage drops sharply versus an all-frontier workflow, quality stays close to it, and the codebase never leaves the machine — the frontier model only earns its (expensive) keep on the one thing it's actually better at.</p>
+            <p>I was tired of paying frontier-model prices for routine repository work. The interesting part became the handoff: deciding when a task can stay local, what context a planning model actually needs, and when the system should stop for a person.</p>
+            <p>Task state, worktrees, context retrieval, and an audit trail live in SQLite and Git. It is still an experiment, but it gave me a concrete way to test routing ideas instead of arguing about them in the abstract.</p>
           </div>
         </details>
         <a class="link" href="https://github.com/AdrianSeth1/Apoapsis-Harness-" target="_blank" rel="noopener">View on GitHub →</a>
@@ -413,23 +411,21 @@
       <div class="card reveal">
         <div class="kicker">AI · Automation</div>
         <h3>AutoApply</h3>
-        <p>A local-first job-application agent that drives a browser to discover roles, score fit, and draft tailored resumes and cover letters with local LLMs. Every actual submit stays gated behind a human decision. Built around auditable agent traces and a provider-agnostic LLM layer.</p>
+        <p>A browser-based job-search tool I built for myself. It finds roles, compares them with a résumé, and drafts application materials. It never submits an application without approval.</p>
         <div class="tags"><span class="tag">Playwright</span><span class="tag teal">Ollama</span><span class="tag teal">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">LLM agents</span></div>
         <a class="link" href="https://github.com/AdrianSeth1/auto-apply" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
 
       <div class="card reveal">
-        <div class="kicker">AI · Audio · In classroom use</div>
+        <div class="kicker">AI · Audio · Classroom pilot</div>
         <h3>prof-ai</h3>
-        <p>A voice-interactive lecture assistant that transcribes class live, spots gaps in the explanation, and answers questions out loud using the professor's own course materials. It runs entirely on local hardware, so there are no per-query costs and no student data ever leaves the room. <strong style="color:#c3b9ff;">A Baylor professor is using it in class right now, and the university is looking at wider adoption.</strong></p>
+        <p>A classroom assistant I built with a Baylor professor. It listens to a lecture, searches the professor's course materials, and can answer questions out loud. A version has been used in class.</p>
         <div class="tags"><span class="tag">Python</span><span class="tag teal">Ollama</span><span class="tag teal">ChromaDB</span><span class="tag">faster-whisper</span><span class="tag teal">Piper TTS</span><span class="tag">RAG</span></div>
         <details class="case">
-          <summary>Read the story</summary>
+          <summary>Why it runs locally</summary>
           <div class="case-body">
-            <p><strong>The problem.</strong> A cloud AI assistant in a live classroom means streaming students' voices and a professor's unpublished materials to someone else's servers. For most instructors that's a non-starter, and rightly so.</p>
-            <p><strong>The approach.</strong> Everything runs locally. Audio is transcribed on-device with faster-whisper, the professor's own slides and readings become the knowledge base in ChromaDB, a local model answers through Ollama, and Piper speaks the reply back. Nothing leaves the machine, so there was no budget or procurement barrier to adoption.</p>
-            <p><strong>The build.</strong> I designed it as a lecture / question / processing state machine and iterated directly with the professor using it, adding gap detection and a multi-turn conversation mode along the way.</p>
-            <p><strong>The outcome.</strong> It's in active classroom use, and the university is weighing wider adoption.</p>
+            <p>The professor wanted to experiment with AI without sending classroom audio or unpublished course material to a third party. The transcription, document search, language model, and speech synthesis therefore all run on the same computer.</p>
+            <p>I adjusted the lecture and question flow after testing it with the professor. That collaboration was more useful than adding another model or feature.</p>
           </div>
         </details>
         <a class="link" href="https://github.com/AdrianSeth1/prof-ai" target="_blank" rel="noopener">View on GitHub →</a>
@@ -438,15 +434,13 @@
       <div class="card reveal">
         <div class="kicker">AI · Image editing</div>
         <h3>Kitchen Remix</h3>
-        <p>Take a photo of a real kitchen and preview remodel options (cabinets, countertops, flooring, paint) as photorealistic edits, before spending a dollar. Runs FLUX.1 Kontext locally on an RTX 4090, so photos never leave the machine. It sorts every edit into "scope tiers" that say plainly where the model is reliable and where it's guessing.</p>
+        <p>I built this for my parents while they were planning a kitchen remodel. It takes a photo and previews changes to cabinets, counters, floors, and paint before anyone starts buying materials.</p>
         <div class="tags"><span class="tag">FLUX.1 Kontext</span><span class="tag">React</span><span class="tag teal">FastAPI</span><span class="tag teal">CUDA</span></div>
         <details class="case">
-          <summary>Read the story</summary>
+          <summary>What I learned</summary>
           <div class="case-body">
-            <p><strong>The problem.</strong> Most people remodeling a kitchen can't picture the result, and designer renders cost time and money. I built this for my parents, who wanted to compare a few directions before committing.</p>
-            <p><strong>The hard part.</strong> AI image tools will cheerfully generate anything, including changes the model has no basis for. A confident render of a wall that isn't there invites a real decision based on a guess. So the design question wasn't "what can the model do?" but "what can it do <strong>reliably</strong>, and how do we label the rest?"</p>
-            <p><strong>The answer.</strong> Every edit is sorted into scope tiers. <strong>Core</strong> edits (finish swaps, object removal) need no information the photo doesn't already contain, so they're treated as dependable. <strong>Experimental</strong> edits (moving objects, opening walls) invent geometry, so they're labeled "not dimensionally accurate." A reused random seed across an A/B set keeps the comparison fair by changing only the finish, not the scene.</p>
-            <p><strong>Why it's local.</strong> FLUX.1 Kontext runs on a home RTX 4090, loaded once and kept warm in VRAM, so photos never leave the machine and inference stays fast.</p>
+            <p>The model is good at changing finishes and much less trustworthy when asked to invent new geometry. I added simple labels that separate those two cases instead of presenting every render with the same confidence.</p>
+            <p>FLUX.1 Kontext runs on my RTX 4090, which keeps family photos off a third-party service and makes repeated comparisons practical.</p>
           </div>
         </details>
         <a class="link" href="https://github.com/AdrianSeth1/Kitchen-remix" target="_blank" rel="noopener">View on GitHub →</a>
@@ -457,25 +451,25 @@
 
   <section id="research">
     <div class="section-label reveal">Research &amp; Writing</div>
-    <h2 class="reveal">Selected academic work</h2>
-    <p class="section-intro reveal">Neuroscience research and synthesis: designing studies, reading primary literature, and thinking about where the field is going.</p>
+    <h2 class="reveal">Neuroscience work</h2>
+    <p class="section-intro reveal">Three pieces from my degree that I still like.</p>
     <div class="timeline">
       <div class="tl-item reveal">
         <div class="term">Research Proposal · Presented to the National Society in Neuroscience</div>
         <h3>Training-Induced Occipital Recruitment in Late-Blind Adults</h3>
-        <p>A full fMRI study proposal testing whether eight weeks of multisensory navigation training can re-engage the visual cortex in adults who lost sight after childhood. It includes hypotheses, a GPower-based power analysis, a sensory-substitution apparatus design, an MRI acquisition and preprocessing protocol, and a full statistical plan, all built on the cross-modal plasticity literature.</p>
+        <p>A proposed fMRI study testing whether eight weeks of multisensory navigation training could recruit visual cortex in adults who lost sight after childhood. I worked through the power analysis, apparatus, imaging protocol, and statistical plan.</p>
         <a class="link" href="docs/late-blind-plasticity-proposal.pdf" target="_blank" rel="noopener">Read the proposal (PDF) →</a>
       </div>
       <div class="tl-item reveal">
         <div class="term">Capstone · NSC 4330, Technology &amp; the Nervous System</div>
         <h3>From Affect to Merge: How Technology Is Rewiring the Brain</h3>
-        <p>A semester-long synthesis of about 20 papers, traced along one arc of technology moving from the outside in: affecting behavior, exploiting reward circuits, reading the brain, stimulating it, and finally merging with it (brain-spine interfaces, hippocampal prosthetics, the MICrONS connectome). It closes on the open questions around neural-data rights and the gap between predicting behavior and consciousness.</p>
+        <p>My capstone reviewed about 20 papers on technology's relationship with the nervous system, from reward circuits and brain reading to stimulation, neural prosthetics, and the unresolved question of neural-data rights.</p>
         <a class="link" href="docs/technology-and-the-nervous-system.pdf" target="_blank" rel="noopener">View the capstone (PDF) →</a>
       </div>
       <div class="tl-item reveal">
         <div class="term">Journal Club · Neural Stimulation</div>
         <h3>TMS &amp; Visual Working Memory</h3>
-        <p>Analysis of a cerebellar TMS study (Viñas-Guasch et al., 2023) showing that disrupting the left inferior cerebellum selectively impairs visual working memory but leaves verbal memory intact. I broke down the fMRI-guided targeting, the double-dissociation design, the statistics, and where the study's small sample limits its claims.</p>
+        <p>A journal-club analysis of a cerebellar TMS study by Viñas-Guasch and colleagues. I focused on the targeting, double-dissociation design, statistics, and what the small sample does not let us conclude.</p>
         <a class="link" href="docs/tms-visual-working-memory.pdf" target="_blank" rel="noopener">Read the analysis (PDF) →</a>
       </div>
     </div>
@@ -484,33 +478,33 @@
   <section id="experience">
     <div class="section-label reveal">Experience</div>
     <h2 class="reveal">Where I've worked</h2>
-    <p class="section-intro reveal">A mix of AI, startup operations, and client-facing work. Usually I'm the person who translates between the technical and the non-technical.</p>
+    <p class="section-intro reveal">Model evaluation, startup operations, healthcare, and small-business websites.</p>
     <div class="timeline">
       <div class="tl-item reveal">
         <div class="term">May 2026 to Present</div>
         <h3>AI Model Evaluator, Mercor <span style="color:var(--muted);font-weight:400;">(contract)</span></h3>
-        <p>Evaluate LLM outputs for reasoning accuracy, factual consistency, and instruction-following across technical and generalist domains using structured rubrics, and document failure modes and edge cases.</p>
+        <p>Review LLM responses for reasoning, factual accuracy, and instruction-following. I document the failure cases clearly enough for someone else to reproduce them.</p>
       </div>
       <div class="tl-item reveal">
         <div class="term">Jan 2024 to Oct 2025</div>
         <h3>Operations Analyst &amp; Startup Generalist, SDS <span style="color:var(--muted);font-weight:400;">(B2B SaaS)</span></h3>
-        <p>Cross-functional role spanning client onboarding, analytics, and product ops, often scoping the work before doing it. Redesigned onboarding end to end, cutting time-to-value by around 30%, and built Looker Studio dashboards that sales and product used to prioritize.</p>
+        <p>Worked across client onboarding, analytics, and product operations. I redesigned the onboarding process, reducing time-to-value by about 30%, and built dashboards used by sales and product.</p>
       </div>
       <div class="tl-item reveal">
         <div class="term">2022 to 2023</div>
         <h3>Therapy Technician &amp; Freelance Web Consultant</h3>
-        <p>Direct patient care in an inpatient rehab hospital, contributing to a roughly 32% rise in unit satisfaction. Alongside that, freelance work as the sole technical contact for small-business clients, building WordPress sites and running Google Ads and SEO.</p>
+        <p>Provided direct patient care in an inpatient rehab hospital. During the same period, I built WordPress sites and managed Google Ads and SEO for small-business clients.</p>
       </div>
     </div>
   </section>
 
   <section id="about">
     <div class="section-label reveal">About</div>
-    <h2 class="reveal">A bit about me</h2>
+    <h2 class="reveal">About me</h2>
     <div class="about-wrap">
       <div class="reveal">
-        <p>I'm a Baylor neuroscience grad (B.S., 2026, Presidential Merit Scholar) who codes. Most of what I build uses AI to make hard things like studying, remodeling, and job-hunting a little less painful, and I try to be upfront about where those tools fall short.</p>
-        <p>I like running models locally and keeping a human in charge of the decisions that matter. Shipping isn't the end for me; I also teach the people around me to use what I build. I want to understand what's actually happening under the hood, whether that's a transformer or an action potential.</p>
+        <p>I'm from Dallas and graduated from Baylor in 2026 with a degree in neuroscience. I ended up writing much more Python than I expected.</p>
+        <p>I like projects with a specific person on the other side. Most of mine began with a professor, a family member, or me wanting something that did not exist. I'm looking for work where I can combine technical problem-solving with the client and operations experience I already have.</p>
       </div>
       <div class="reveal">
         <h4>Tools &amp; skills</h4>
@@ -527,10 +521,10 @@
 
   <section id="contact">
     <div class="section-label reveal">Contact</div>
-    <h2 class="reveal">Let's talk</h2>
+    <h2 class="reveal">Get in touch</h2>
     <p class="reveal" style="color: var(--muted); max-width: 58ch;">
-      Based in Dallas, TX and open to relocation. The fastest way to reach me is by email:
-      <a href="mailto:aryamaanseth@gmail.com" style="color: var(--accent-2); text-decoration: none;">aryamaanseth@gmail.com</a>. You can also find me on <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">LinkedIn</a>, my code on <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">GitHub</a>, or grab my <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">résumé</a>.
+      I'm in Dallas and open to relocating. If something here is relevant to what you're working on, email
+      <a href="mailto:aryamaanseth@gmail.com" style="color: var(--accent-2); text-decoration: none;">aryamaanseth@gmail.com</a>. You can also find me on <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">LinkedIn</a>, look through my code on <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">GitHub</a>, or read my <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">résumé</a>.
     </p>
   </section>
 </main>
@@ -542,7 +536,7 @@
     <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
     <a href="mailto:aryamaanseth@gmail.com">Email</a>
   </div>
-  © 2026 Aryamaan Seth · Built by hand.
+  © 2026 Aryamaan Seth
 </footer>
 
 <script>
