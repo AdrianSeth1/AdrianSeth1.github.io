@@ -3,751 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aryamaan Seth | Projects, research, and experience</title>
-<meta name="description" content="I'm Aryamaan Seth, a Baylor neuroscience graduate in Dallas. I evaluate AI models, build software, and write about neuroscience.">
+<title>Aryamaan Seth — I build AI tools people actually use</title>
+<meta name="description" content="Aryamaan Seth builds local-first AI tools with real users — a lecture assistant deployed in a Baylor classroom, an agent verification harness, a full-stack automation platform. M.S. in Artificial Intelligence, CU Boulder.">
 <meta name="author" content="Aryamaan Seth">
-<meta name="theme-color" content="#06060b">
-<link rel="canonical" href="https://adrianseth1.github.io/">
-
-<!-- Favicons -->
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-
-<!-- Social preview (Open Graph + Twitter) -->
+<meta property="og:title" content="Aryamaan Seth — I build AI tools people actually use">
+<meta property="og:description" content="Local-first AI tools with real users. M.S. in Artificial Intelligence. LLM evals at Mercor.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adrianseth1.github.io/">
-<meta property="og:title" content="Aryamaan Seth | Projects, research, and experience">
-<meta property="og:description" content="A Baylor neuroscience graduate who evaluates AI models and builds software in Dallas.">
 <meta property="og:image" content="https://adrianseth1.github.io/og-image-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aryamaan Seth | Projects, research, and experience">
-<meta name="twitter:description" content="A Baylor neuroscience graduate who evaluates AI models and builds software in Dallas.">
+<meta name="twitter:title" content="Aryamaan Seth — I build AI tools people actually use">
+<meta name="twitter:description" content="Local-first AI tools with real users. M.S. in Artificial Intelligence. LLM evals at Mercor.">
 <meta name="twitter:image" content="https://adrianseth1.github.io/og-image-v2.png">
-
-<!-- Inter font -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="canonical" href="https://adrianseth1.github.io/">
+<meta name="theme-color" content="#06060b">
 <style>
-  :root {
-    --bg: #060609;
-    --card: rgba(255,255,255,0.035);
-    --card-border: rgba(255,255,255,0.09);
-    --text: #edeef4;
-    --muted: #9a9aad;
-    --accent: #7c6cff;
-    --accent-2: #4dd6c1;
-    --radius: 16px;
-    --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  :root{
+    --bg:#06060b; --bg2:#0c0c14; --card:#10101a; --line:#1e1e2c;
+    --text:#e8e8f0; --muted:#9a9ab0; --accent:#6ee7d8; --accent2:#8b8bff;
+    --maxw:1060px;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.6; overflow-x: hidden; }
-  ::selection { background: var(--accent); color: #fff; }
-  :focus-visible { outline: 2px solid var(--accent-2); outline-offset: 3px; border-radius: 4px; }
-
-  /* animated neuron canvas */
-  #neural { position: fixed; inset: 0; z-index: 0; display: block; }
-  .vignette {
-    position: fixed; inset: 0; z-index: 1; pointer-events: none;
-    background: radial-gradient(120% 90% at 50% -10%, transparent 40%, rgba(6,6,9,0.55) 100%),
-                linear-gradient(180deg, rgba(6,6,9,0.35), rgba(6,6,9,0.15) 30%, rgba(6,6,9,0.6));
-  }
-  main, nav, footer { position: relative; z-index: 2; }
-
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 18px 6vw; backdrop-filter: blur(14px); background: rgba(6,6,9,0.5); border-bottom: 1px solid rgba(255,255,255,0.06); }
-  nav .logo { font-weight: 700; letter-spacing: 0.04em; font-size: 1.05rem; }
-  nav .logo span { color: var(--accent); }
-  nav ul { display: flex; gap: 28px; list-style: none; }
-  nav a { color: var(--muted); text-decoration: none; font-size: 0.92rem; transition: color 0.25s; }
-  nav a:hover, nav a.active { color: var(--text); }
-  nav a.active { position: relative; }
-  nav a.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -6px; height: 2px; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); }
-  /* mobile menu toggle */
-  .nav-toggle { display: none; background: none; border: 0; cursor: pointer; padding: 8px; width: 42px; height: 42px; }
-  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--text); margin: 4px auto; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-  nav.open .nav-toggle span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-  nav.open .nav-toggle span:nth-child(2) { opacity: 0; }
-  nav.open .nav-toggle span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-  .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 6vw; }
-  .hero .eyebrow { color: var(--accent-2); font-size: 0.95rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 18px; opacity: 0; animation: rise 0.8s ease 0.1s forwards; }
-  .hero h1 { font-size: clamp(2.6rem, 7vw, 5.4rem); line-height: 1.07; font-weight: 800; letter-spacing: -0.02em; max-width: 16ch; opacity: 0; animation: rise 0.8s ease 0.25s forwards; text-shadow: 0 2px 40px rgba(0,0,0,0.5); }
-  .hero h1 .grad { background: linear-gradient(90deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .hero p { margin-top: 24px; max-width: 56ch; color: #c2c2d0; font-size: 1.12rem; opacity: 0; animation: rise 0.8s ease 0.4s forwards; }
-  .hero .cta { margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap; opacity: 0; animation: rise 0.8s ease 0.55s forwards; }
-  .btn { padding: 13px 26px; border-radius: 999px; font-size: 0.95rem; text-decoration: none; font-weight: 600; transition: transform 0.25s, box-shadow 0.25s; }
-  .btn-primary { background: linear-gradient(90deg, var(--accent), #9b8cff); color: #fff; box-shadow: 0 8px 30px rgba(124,108,255,0.35); }
-  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(124,108,255,0.5); }
-  .btn-ghost { border: 1px solid var(--card-border); color: var(--text); background: rgba(6,6,9,0.3); }
-  .btn-ghost:hover { transform: translateY(-3px); background: var(--card); }
-  @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
-  .scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); color: var(--muted); font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; animation: bob 2.2s ease-in-out infinite; }
-  @keyframes bob { 0%,100% { transform: translate(-50%,0);} 50% { transform: translate(-50%,10px);} }
-
-  section { padding: 110px 6vw; max-width: 1200px; margin: 0 auto; }
-  .section-label { color: var(--accent-2); font-size: 0.85rem; letter-spacing: 0.18em; text-transform: uppercase; margin-bottom: 12px; }
-  h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; margin-bottom: 12px; }
-  .section-intro { color: var(--muted); max-width: 60ch; margin-bottom: 44px; }
-
-  .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px; }
-  .card { background: var(--card); border: 1px solid var(--card-border); border-radius: var(--radius); padding: 30px; transition: transform 0.35s cubic-bezier(.2,.7,.3,1), border-color 0.35s; position: relative; overflow: hidden; display: flex; flex-direction: column; backdrop-filter: blur(6px); }
-  .card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(124,108,255,0.14), transparent 60%); opacity: 0; transition: opacity 0.35s; pointer-events: none; }
-  .card:hover::before { opacity: 1; }
-  .card:hover { transform: translateY(-6px); border-color: rgba(124,108,255,0.45); }
-  .card .kicker { font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 8px; }
-  .card h3 { font-size: 1.25rem; margin-bottom: 10px; }
-  .card p { color: var(--muted); font-size: 0.95rem; }
-  .tags { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
-  .tag { font-size: 0.75rem; padding: 4px 12px; border-radius: 999px; background: rgba(124,108,255,0.12); color: #b6acff; border: 1px solid rgba(124,108,255,0.25); }
-  .tag.teal { background: rgba(77,214,193,0.1); color: #7fe6d5; border-color: rgba(77,214,193,0.25); }
-  .card a.link { display: inline-block; margin-top: auto; padding-top: 18px; color: var(--accent-2); text-decoration: none; font-size: 0.9rem; font-weight: 600; }
-  .card a.link:hover { text-decoration: underline; }
-  /* case study expander */
-  .case { margin-top: 16px; border-top: 1px solid rgba(255,255,255,0.07); padding-top: 8px; }
-  .case > summary { cursor: pointer; list-style: none; color: var(--accent-2); font-size: 0.85rem; font-weight: 600; padding: 6px 0; display: flex; align-items: center; gap: 6px; }
-  .case > summary::-webkit-details-marker { display: none; }
-  .case > summary::before { content: "+"; font-size: 1.15rem; line-height: 1; display: inline-block; transition: transform 0.25s; }
-  .case[open] > summary::before { transform: rotate(45deg); }
-  .case .case-body { font-size: 0.9rem; color: var(--muted); padding: 6px 0 4px; }
-  .case .case-body p { margin-bottom: 10px; }
-  .case .case-body strong { color: #c3b9ff; font-weight: 600; }
-
-  .timeline { position: relative; padding-left: 34px; }
-  .timeline::before { content: ""; position: absolute; left: 8px; top: 6px; bottom: 6px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2)); border-radius: 2px; }
-  .tl-item { position: relative; padding-bottom: 42px; }
-  .tl-item:last-child { padding-bottom: 0; }
-  .tl-item::before { content: ""; position: absolute; left: -33px; top: 8px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 3px solid var(--accent); }
-  .tl-item .term { color: var(--accent-2); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
-  .tl-item h3 { font-size: 1.15rem; margin: 6px 0; }
-  .tl-item p { color: var(--muted); font-size: 0.95rem; max-width: 68ch; }
-  .tl-item a.link { display: inline-block; margin-top: 10px; color: var(--accent-2); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
-  .tl-item a.link:hover { text-decoration: underline; }
-
-  .about-wrap { display: grid; grid-template-columns: 1.3fr 1fr; gap: 60px; align-items: start; }
-  .about-wrap p { color: var(--muted); margin-bottom: 16px; }
-  .about-wrap h4 { font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
-  .skills { display: flex; flex-wrap: wrap; gap: 10px; }
-
-  footer { padding: 60px 6vw; text-align: center; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.06); }
-  footer .socials { margin-bottom: 16px; display: flex; justify-content: center; gap: 24px; }
-  footer .socials a { color: var(--muted); text-decoration: none; transition: color 0.25s; }
-  footer .socials a:hover { color: var(--text); }
-
-  @media (max-width: 760px) {
-    .about-wrap { grid-template-columns: 1fr; gap: 32px; }
-    .nav-toggle { display: block; }
-    nav ul {
-      position: fixed; top: 0; right: 0; height: 100vh; width: min(78vw, 300px);
-      flex-direction: column; gap: 8px; padding: 90px 32px;
-      background: rgba(8,8,14,0.96); backdrop-filter: blur(18px);
-      border-left: 1px solid rgba(255,255,255,0.08);
-      transform: translateX(100%); transition: transform 0.35s cubic-bezier(.2,.7,.3,1);
-    }
-    nav.open ul { transform: translateX(0); }
-    nav ul li { width: 100%; }
-    nav ul a { display: block; font-size: 1.1rem; padding: 10px 0; }
-  }
-  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } .reveal { opacity: 1; transform: none; } #neural { display: none; } }
-</style>
-<style id="v2-visual-upgrades">
-  /* Hybrid v2: preserve the architecture, sharpen the visual hierarchy. */
-  :root {
-    --bg: #07080d;
-    --card: rgba(17, 19, 29, 0.68);
-    --card-border: rgba(222, 225, 255, 0.11);
-    --text: #f4f2ed;
-    --muted: #aaa9b8;
-    --accent: #8a7dff;
-    --accent-2: #59dcc5;
-    --radius: 22px;
-  }
-
-  body {
-    background:
-      radial-gradient(80rem 55rem at 78% -10%, rgba(103, 88, 255, 0.12), transparent 60%),
-      radial-gradient(60rem 45rem at -10% 45%, rgba(49, 193, 171, 0.06), transparent 65%),
-      var(--bg);
-  }
-
-  nav {
-    width: min(calc(100% - 28px), 1180px);
-    left: 50%;
-    right: auto;
-    top: 14px;
-    transform: translateX(-50%);
-    padding: 12px 18px;
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 16px;
-    background: rgba(9, 10, 16, 0.72);
-    box-shadow: 0 18px 60px rgba(0,0,0,0.24);
-  }
-
-  nav .logo { letter-spacing: -0.03em; font-size: 1.1rem; }
-  nav ul { gap: 8px; }
-  nav a { padding: 8px 11px; border-radius: 9px; }
-  nav a:hover, nav a.active { background: rgba(255,255,255,0.055); }
-  nav a.active::after { display: none; }
-
-  .hero {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding-top: 110px;
-    position: relative;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    width: min(38vw, 520px);
-    aspect-ratio: 1;
-    right: 3vw;
-    top: 50%;
-    transform: translateY(-48%);
-    border-radius: 50%;
-    border: 1px solid rgba(138,125,255,0.16);
-    box-shadow:
-      0 0 0 48px rgba(138,125,255,0.025),
-      0 0 0 104px rgba(89,220,197,0.018),
-      inset 0 0 90px rgba(138,125,255,0.055);
-    pointer-events: none;
-  }
-
-  .hero .eyebrow {
-    width: fit-content;
-    padding: 7px 11px;
-    border: 1px solid rgba(89,220,197,0.22);
-    border-radius: 999px;
-    background: rgba(89,220,197,0.055);
-    font-size: 0.72rem;
-    letter-spacing: 0.16em;
-  }
-
-  .hero h1 {
-    max-width: 13ch;
-    font-size: clamp(3.1rem, 7.4vw, 6.2rem);
-    letter-spacing: -0.055em;
-    line-height: 0.98;
-  }
-
-  .hero p { max-width: 50ch; font-size: clamp(1.02rem, 1.5vw, 1.2rem); }
-  .hero .cta { margin-top: 34px; }
-  .scroll-hint { opacity: 0.66; }
-
-  .btn {
-    border-radius: 12px;
-    padding: 13px 21px;
-    border: 1px solid transparent;
-  }
-  .btn-primary { box-shadow: 0 12px 38px rgba(124,108,255,0.24); }
-  .btn-ghost { background: rgba(13,14,22,0.68); }
-
-  section { padding-top: 128px; padding-bottom: 128px; }
-  section + section { border-top: 1px solid rgba(255,255,255,0.055); }
-  .section-label { display: flex; align-items: center; gap: 10px; }
-  .section-label::before { content: ""; width: 28px; height: 1px; background: currentColor; }
-  h2 { font-size: clamp(2.25rem, 5vw, 3.7rem); letter-spacing: -0.045em; line-height: 1.05; }
-  .section-intro { font-size: 1.02rem; margin-bottom: 52px; }
-
-  .grid { grid-template-columns: repeat(12, 1fr); gap: 20px; align-items: stretch; }
-  .grid > .card { grid-column: span 12; min-height: 270px; }
-  .grid > .card:nth-child(2) {
-    grid-column: span 12;
-    min-height: 270px;
-    padding-right: 32px;
-    padding-top: 32px;
-    background:
-      radial-gradient(34rem 26rem at 88% 30%, rgba(89,220,197,0.12), transparent 65%),
-      linear-gradient(135deg, rgba(27,28,44,0.88), rgba(14,16,24,0.74));
-  }
-  .grid > .card:nth-child(2)::after {
-    content: "IN CLASSROOM USE";
-    position: absolute;
-    top: 28px;
-    right: 28px;
-    padding: 7px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(89,220,197,0.3);
-    color: #8be9d9;
-    background: rgba(89,220,197,0.08);
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
-    font-weight: 700;
-  }
-
-  .card {
-    padding: 32px;
-    box-shadow: 0 22px 70px rgba(0,0,0,0.18);
-  }
-  .card::after { pointer-events: none; }
-  .card h3 { font-size: 1.48rem; letter-spacing: -0.025em; }
-  .card p { line-height: 1.72; max-width: 82ch; }
-  .card a.link { text-decoration: none; width: fit-content; }
-
-  .timeline { padding-left: 42px; }
-  .timeline::before { left: 11px; opacity: 0.55; }
-  .tl-item {
-    padding: 25px 28px 28px;
-    margin-bottom: 16px;
-    border: 1px solid rgba(255,255,255,0.075);
-    border-radius: 18px;
-    background: rgba(15,16,24,0.46);
-  }
-  .tl-item:last-child { padding-bottom: 28px; }
-  .tl-item::before { left: -38px; top: 30px; box-shadow: 0 0 0 6px rgba(124,108,255,0.08); }
-
-  .about-wrap { gap: clamp(40px, 8vw, 100px); }
-  .about-wrap > div:last-child {
-    padding: 28px;
-    border: 1px solid rgba(255,255,255,0.075);
-    border-radius: 20px;
-    background: rgba(15,16,24,0.5);
-  }
-
-  #contact {
-    max-width: min(1080px, 88vw);
-    margin-top: 80px;
-    margin-bottom: 110px;
-    padding: clamp(48px, 8vw, 82px);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 28px;
-    background:
-      radial-gradient(45rem 28rem at 100% 0%, rgba(89,220,197,0.12), transparent 58%),
-      rgba(16,17,27,0.72);
-    box-shadow: 0 30px 90px rgba(0,0,0,0.25);
-  }
-
-  @media (max-width: 980px) {
-    .grid > .card, .grid > .card:nth-child(2) {
-      grid-column: span 12;
-      min-height: auto;
-    }
-  }
-
-  @media (max-width: 820px) {
-    nav { top: 8px; width: calc(100% - 16px); }
-    nav ul { top: -9px; right: -9px; }
-    .hero { min-height: 92svh; padding-top: 124px; }
-    .hero::before { width: 72vw; right: -34vw; opacity: 0.65; }
-    .hero h1 { font-size: clamp(3rem, 14vw, 4.5rem); }
-    section { padding-top: 92px; padding-bottom: 92px; }
-    .grid > .card, .grid > .card:nth-child(2) { grid-column: span 12; min-height: auto; padding: 28px; }
-    .grid > .card:nth-child(2) { padding-top: 76px; }
-    .grid > .card:nth-child(2)::after { left: 28px; right: auto; }
-    .timeline { padding-left: 28px; }
-    .tl-item { padding: 22px; }
-    .tl-item::before { left: -27px; }
-    #contact { max-width: calc(100% - 32px); margin-top: 42px; margin-bottom: 72px; }
-  }
-
-  @media (max-width: 520px) {
-    .hero .cta { display: grid; grid-template-columns: 1fr 1fr; width: 100%; }
-    .hero .cta .btn:first-child { grid-column: span 2; }
-    .btn { text-align: center; }
-    h2 { font-size: 2.45rem; }
-    .card, .grid > .card:nth-child(2) { padding-left: 22px; padding-right: 22px; }
-  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.6}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  /* nav */
+  nav{position:sticky;top:0;z-index:10;background:rgba(6,6,11,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;font-size:1.1rem;color:var(--text)}
+  .logo span{color:var(--accent)}
+  nav ul{display:flex;gap:22px;list-style:none}
+  nav ul a{color:var(--muted);font-size:.92rem}
+  nav ul a:hover{color:var(--text);text-decoration:none}
+  /* hero */
+  header{padding:90px 0 60px;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(110,231,216,.07),transparent)}
+  .kicker{color:var(--accent);font-size:.9rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.15;font-weight:800;max-width:820px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .sub{color:var(--muted);font-size:1.12rem;max-width:720px;margin:20px 0 26px}
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:30px}
+  .chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.85rem;color:var(--text)}
+  .chip b{color:var(--accent);font-weight:700}
+  .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:11px 20px;border-radius:8px;font-weight:600;font-size:.95rem}
+  .btn.primary{background:var(--accent);color:#04110e}
+  .btn.primary:hover{filter:brightness(1.1);text-decoration:none}
+  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  .btn.ghost:hover{border-color:var(--accent);text-decoration:none}
+  /* sections */
+  section{padding:70px 0;border-top:1px solid var(--line)}
+  .sec-kicker{color:var(--accent2);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px}
+  h2{font-size:1.9rem;font-weight:800;margin-bottom:10px}
+  .lede{color:var(--muted);max-width:700px;margin-bottom:36px}
+  /* project cards */
+  .proj{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:22px}
+  .proj:hover{border-color:#2c2c40}
+  .proj .tag{font-size:.78rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+  .proj h3{font-size:1.35rem;margin:6px 0 4px}
+  .proj .status{display:inline-block;font-size:.78rem;color:#04110e;background:var(--accent);border-radius:999px;padding:2px 10px;font-weight:700;margin-left:8px;vertical-align:middle}
+  .proj p{color:var(--muted);margin:10px 0}
+  .proj .deep{color:var(--text);background:var(--bg2);border-left:3px solid var(--accent2);padding:14px 16px;border-radius:0 8px 8px 0;font-size:.95rem;margin:14px 0}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+  .stack span{font-size:.78rem;border:1px solid var(--line);border-radius:6px;padding:3px 9px;color:var(--muted)}
+  .quote{border-left:3px solid var(--accent);padding:10px 16px;color:var(--text);font-style:italic;margin:14px 0;background:var(--bg2);border-radius:0 8px 8px 0}
+  .quote small{display:block;color:var(--muted);font-style:normal;margin-top:6px}
+  /* grid lists */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:760px){.grid2{grid-template-columns:1fr}}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:22px}
+  .item h3{font-size:1.05rem;margin-bottom:4px}
+  .item .when{color:var(--accent);font-size:.82rem}
+  .item p{color:var(--muted);font-size:.93rem;margin-top:8px}
+  /* now strip */
+  .now{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:24px 28px;margin-top:8px}
+  .now h3{color:var(--accent);font-size:1rem;margin-bottom:8px}
+  .now p{color:var(--muted)}
+  footer{padding:50px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+  footer .links{display:flex;gap:18px;margin-bottom:14px;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
-<canvas id="neural" aria-hidden="true"></canvas>
-<div class="vignette" aria-hidden="true"></div>
-
-<nav id="nav">
+<nav><div class="wrap">
   <div class="logo">arya<span>.</span></div>
-  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
-    <span></span><span></span><span></span>
-  </button>
-  <ul id="nav-menu">
+  <ul>
     <li><a href="#projects">Projects</a></li>
     <li><a href="#research">Research</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-</nav>
+</div></nav>
 
-<main>
-  <header class="hero">
-    <div class="eyebrow">Dallas · Neuroscience · Software</div>
-    <h1>I studied neuroscience.<br><span class="grad">I also build software.</span></h1>
-    <p>I'm Arya, a 2026 Baylor graduate and AI model evaluator. Most of my projects started with a problem close to home: a professor trying AI in class, my parents planning a remodel, or me looking for work.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#projects">See my work</a>
-      <a class="btn btn-ghost" href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
-      <a class="btn btn-ghost" href="https://github.com/AdrianSeth1" target="_blank" rel="noopener">GitHub</a>
+<header><div class="wrap">
+  <div class="kicker">Dallas–Fort Worth · open to SF / LA / NYC / Portland / remote</div>
+  <h1>I build AI tools <em>people actually use</em>.</h1>
+  <p class="sub">I'm Arya — an AI builder finishing an M.S. in Artificial Intelligence. My lecture assistant runs in a real Baylor classroom. My tools run locally, keep humans in charge of decisions that matter, and are honest about what they can't do.</p>
+  <div class="chips">
+    <div class="chip"><b>Deployed:</b> prof-ai, in live classroom use</div>
+    <div class="chip"><b>M.S. Artificial Intelligence</b> · CU Boulder · 4.0</div>
+    <div class="chip"><b>LLM evals</b> @ Mercor</div>
+    <div class="chip"><b>2×</b> hackathon winner</div>
+  </div>
+  <div class="cta">
+    <a class="btn primary" href="#projects">See my work</a>
+    <a class="btn ghost" href="docs/Aryamaan-Seth-Resume.pdf">Résumé</a>
+    <a class="btn ghost" href="https://github.com/AdrianSeth1">GitHub</a>
+  </div>
+</div></header>
+
+<section id="projects"><div class="wrap">
+  <div class="sec-kicker">Projects</div>
+  <h2>Working software, real users</h2>
+  <p class="lede">Every project here started with a specific person's problem and ended with something that runs. Code is public, rough edges included.</p>
+
+  <div class="proj">
+    <span class="tag">AI · Audio · Education</span>
+    <h3>prof-ai — local AI lecture assistant <span class="status">in classroom use</span></h3>
+    <p>A voice-interactive classroom assistant built end to end: live lecture transcription, retrieval-augmented Q&amp;A grounded in the professor's own course materials, and spoken answers through a web interface. A Baylor professor uses it in class today.</p>
+    <div class="deep">Everything — transcription, retrieval, language model, speech synthesis — runs on one local machine. Zero per-query cost and no student or course data leaving the room is what made adoption possible with no budget and no procurement process. I scoped it sitting next to the professor: a lecture / question / processing state machine, multi-turn conversation mode, and iteration driven by what actually happened in class.</div>
+    <!-- TODO: paste professor quote here once received:
+    <div class="quote">"…" <small>— Professor X, Baylor University</small></div> -->
+    <div class="stack"><span>Python</span><span>Ollama</span><span>ChromaDB</span><span>faster-whisper</span><span>Piper TTS</span><span>RAG</span></div>
+    <a href="https://github.com/AdrianSeth1/prof-ai">View on GitHub →</a>
+  </div>
+
+  <div class="proj">
+    <span class="tag">AI · Full-stack platform</span>
+    <h3>AutoApply — job-search automation platform</h3>
+    <p>What started as "a script to fill forms" became a multi-service platform: a Vue 3 SPA over a FastAPI backend, PostgreSQL, Redis/Celery workers, and local LLMs — searching job sources, scoring fit with explainable rules, and generating tailored, fact-checked application documents.</p>
+    <div class="deep">The interesting engineering is in the guardrails: document generation is evidence-grounded (bullets come from a verified pool with fact-drift validation, so the LLM can't invent achievements), every submission is gated behind a human review queue, and scoring produces an explainable breakdown instead of a black-box number. Caching, deduplication across job sources, and a version ledger keep a 1,000+ document pipeline auditable.</div>
+    <div class="stack"><span>FastAPI</span><span>Vue 3</span><span>PostgreSQL</span><span>Celery / Redis</span><span>Playwright</span><span>Ollama</span><span>SQLAlchemy</span></div>
+    <a href="https://github.com/AdrianSeth1/auto-apply">View on GitHub →</a>
+  </div>
+
+  <div class="proj">
+    <span class="tag">AI · Developer tools</span>
+    <h3>Apoapsis Harness — verification layer for coding agents</h3>
+    <p>An experiment in splitting coding-agent work between local and hosted models: local models handle routine search, edits, and checks; harder planning escalates with only the context it needs — and the system knows when to stop for a person.</p>
+    <div class="deep">Task state, git worktrees, context retrieval, and a full audit trail live in SQLite + Git, so agent work happens in a bounded sandbox where it can't damage the main tree. In my testing it matches or beats an unharnessed local model while staying cheaper than sending everything to a frontier model — a concrete way to test routing ideas instead of arguing about them in the abstract.</div>
+    <div class="stack"><span>Python</span><span>SQLite</span><span>Git</span><span>Ollama</span><span>ripgrep</span></div>
+    <a href="https://github.com/AdrianSeth1/Apoapsis-Harness-">View on GitHub →</a>
+  </div>
+
+  <div class="proj">
+    <span class="tag">AI · Image editing</span>
+    <h3>Kitchen Remix — AI remodel visualizer</h3>
+    <p>Built for my parents mid-remodel: turns a photo of a real kitchen into previews of new cabinets, counters, floors, and paint — running FLUX.1 Kontext locally so family photos never leave the machine.</p>
+    <div class="deep">The model is good at changing finishes and much less trustworthy at inventing geometry, so the UI labels every render by reliability tier instead of presenting all output with equal confidence. Knowing where a model is guessing is half the product.</div>
+    <div class="stack"><span>FLUX.1 Kontext</span><span>React + Vite</span><span>FastAPI</span><span>CUDA</span></div>
+    <a href="https://github.com/AdrianSeth1/Kitchen-remix">View on GitHub →</a>
+  </div>
+</div></section>
+
+<section id="research"><div class="wrap">
+  <div class="sec-kicker">Research &amp; writing</div>
+  <h2>Neuroscience work</h2>
+  <p class="lede">I came to AI through the brain. Three pieces from my degree that I still stand behind.</p>
+  <div class="grid2">
+    <div class="item">
+      <h3>Training-Induced Occipital Recruitment in Late-Blind Adults</h3>
+      <span class="when">Research proposal · presented to the National Society in Neuroscience</span>
+      <p>A proposed fMRI study testing whether eight weeks of multisensory navigation training could recruit visual cortex in late-blind adults — power analysis, custom apparatus, imaging protocol, and statistical plan included.</p>
+      <a href="docs/late-blind-plasticity-proposal.pdf">Read the proposal →</a>
     </div>
-    <div class="scroll-hint">scroll</div>
-  </header>
-
-  <section id="projects">
-    <div class="section-label reveal">Projects</div>
-    <h2 class="reveal">Projects</h2>
-    <p class="section-intro reveal">Four experiments that became working software. The code is public, including the rough edges.</p>
-    <div class="grid">
-
-      <div class="card reveal">
-        <div class="kicker">AI · Developer Tools</div>
-        <h3>Apoapsis Harness</h3>
-        <p>An experiment in splitting coding-agent work between local and hosted models. Local models handle routine search, edits, and checks; harder planning can be sent out with only the context it needs.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag teal">SQLite</span><span class="tag">Git</span><span class="tag teal">Ollama</span><span class="tag">ripgrep</span></div>
-        <details class="case">
-          <summary>Why I built it</summary>
-          <div class="case-body">
-            <p>I was tired of paying frontier-model prices for routine repository work. The interesting part became the handoff: deciding when a task can stay local, what context a planning model actually needs, and when the system should stop for a person.</p>
-            <p>Task state, worktrees, context retrieval, and an audit trail live in SQLite and Git. It is still an experiment, but it gave me a concrete way to test routing ideas instead of arguing about them in the abstract.</p>
-          </div>
-        </details>
-        <a class="link" href="https://github.com/AdrianSeth1/Apoapsis-Harness-" target="_blank" rel="noopener">View on GitHub →</a>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker">AI · Automation</div>
-        <h3>AutoApply</h3>
-        <p>A browser-based job-search tool I built for myself. It finds roles, compares them with a résumé, and drafts application materials. It never submits an application without approval.</p>
-        <div class="tags"><span class="tag">Playwright</span><span class="tag teal">Ollama</span><span class="tag teal">FastAPI</span><span class="tag">SQLAlchemy</span><span class="tag">LLM agents</span></div>
-        <a class="link" href="https://github.com/AdrianSeth1/auto-apply" target="_blank" rel="noopener">View on GitHub →</a>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker">AI · Audio · Classroom pilot</div>
-        <h3>prof-ai</h3>
-        <p>A classroom assistant I built with a Baylor professor. It listens to a lecture, searches the professor's course materials, and can answer questions out loud. A version has been used in class.</p>
-        <div class="tags"><span class="tag">Python</span><span class="tag teal">Ollama</span><span class="tag teal">ChromaDB</span><span class="tag">faster-whisper</span><span class="tag teal">Piper TTS</span><span class="tag">RAG</span></div>
-        <details class="case">
-          <summary>Why it runs locally</summary>
-          <div class="case-body">
-            <p>The professor wanted to experiment with AI without sending classroom audio or unpublished course material to a third party. The transcription, document search, language model, and speech synthesis therefore all run on the same computer.</p>
-            <p>I adjusted the lecture and question flow after testing it with the professor. That collaboration was more useful than adding another model or feature.</p>
-          </div>
-        </details>
-        <a class="link" href="https://github.com/AdrianSeth1/prof-ai" target="_blank" rel="noopener">View on GitHub →</a>
-      </div>
-
-      <div class="card reveal">
-        <div class="kicker">AI · Image editing</div>
-        <h3>Kitchen Remix</h3>
-        <p>I built this for my parents while they were planning a kitchen remodel. It takes a photo and previews changes to cabinets, counters, floors, and paint before anyone starts buying materials.</p>
-        <div class="tags"><span class="tag">FLUX.1 Kontext</span><span class="tag">React</span><span class="tag teal">FastAPI</span><span class="tag teal">CUDA</span></div>
-        <details class="case">
-          <summary>What I learned</summary>
-          <div class="case-body">
-            <p>The model is good at changing finishes and much less trustworthy when asked to invent new geometry. I added simple labels that separate those two cases instead of presenting every render with the same confidence.</p>
-            <p>FLUX.1 Kontext runs on my RTX 4090, which keeps family photos off a third-party service and makes repeated comparisons practical.</p>
-          </div>
-        </details>
-        <a class="link" href="https://github.com/AdrianSeth1/Kitchen-remix" target="_blank" rel="noopener">View on GitHub →</a>
-      </div>
-
+    <div class="item">
+      <h3>From Affect to Merge: How Technology Is Rewiring the Brain</h3>
+      <span class="when">Capstone · Technology &amp; the Nervous System</span>
+      <p>A review of ~20 papers spanning reward circuits, brain reading, neural stimulation, prosthetics, and the unresolved question of neural-data rights.</p>
+      <a href="docs/technology-and-the-nervous-system.pdf">View the capstone →</a>
     </div>
-  </section>
-
-  <section id="research">
-    <div class="section-label reveal">Research &amp; Writing</div>
-    <h2 class="reveal">Neuroscience work</h2>
-    <p class="section-intro reveal">Three pieces from my degree that I still like.</p>
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="term">Research Proposal · Presented to the National Society in Neuroscience</div>
-        <h3>Training-Induced Occipital Recruitment in Late-Blind Adults</h3>
-        <p>A proposed fMRI study testing whether eight weeks of multisensory navigation training could recruit visual cortex in adults who lost sight after childhood. I worked through the power analysis, apparatus, imaging protocol, and statistical plan.</p>
-        <a class="link" href="docs/late-blind-plasticity-proposal.pdf" target="_blank" rel="noopener">Read the proposal (PDF) →</a>
-      </div>
-      <div class="tl-item reveal">
-        <div class="term">Capstone · NSC 4330, Technology &amp; the Nervous System</div>
-        <h3>From Affect to Merge: How Technology Is Rewiring the Brain</h3>
-        <p>My capstone reviewed about 20 papers on technology's relationship with the nervous system, from reward circuits and brain reading to stimulation, neural prosthetics, and the unresolved question of neural-data rights.</p>
-        <a class="link" href="docs/technology-and-the-nervous-system.pdf" target="_blank" rel="noopener">View the capstone (PDF) →</a>
-      </div>
-      <div class="tl-item reveal">
-        <div class="term">Journal Club · Neural Stimulation</div>
-        <h3>TMS &amp; Visual Working Memory</h3>
-        <p>A journal-club analysis of a cerebellar TMS study by Viñas-Guasch and colleagues. I focused on the targeting, double-dissociation design, statistics, and what the small sample does not let us conclude.</p>
-        <a class="link" href="docs/tms-visual-working-memory.pdf" target="_blank" rel="noopener">Read the analysis (PDF) →</a>
-      </div>
+    <div class="item">
+      <h3>TMS &amp; Visual Working Memory</h3>
+      <span class="when">Journal-club analysis</span>
+      <p>Close analysis of a cerebellar TMS study — targeting, double-dissociation design, statistics, and what a small sample does not let us conclude.</p>
+      <a href="docs/tms-visual-working-memory.pdf">Read the analysis →</a>
     </div>
-  </section>
-
-  <section id="experience">
-    <div class="section-label reveal">Experience</div>
-    <h2 class="reveal">Where I've worked</h2>
-    <p class="section-intro reveal">Model evaluation, startup operations, healthcare, and small-business websites.</p>
-    <div class="timeline">
-      <div class="tl-item reveal">
-        <div class="term">May 2026 to Present</div>
-        <h3>AI Model Evaluator, Mercor <span style="color:var(--muted);font-weight:400;">(contract)</span></h3>
-        <p>Review LLM responses for reasoning, factual accuracy, and instruction-following. I document the failure cases clearly enough for someone else to reproduce them.</p>
-      </div>
-      <div class="tl-item reveal">
-        <div class="term">Jan 2024 to Oct 2025</div>
-        <h3>Operations Analyst &amp; Startup Generalist, SDS <span style="color:var(--muted);font-weight:400;">(B2B SaaS)</span></h3>
-        <p>Worked across client onboarding, analytics, and product operations. I redesigned the onboarding process, reducing time-to-value by about 30%, and built dashboards used by sales and product.</p>
-      </div>
-      <div class="tl-item reveal">
-        <div class="term">2022 to 2023</div>
-        <h3>Therapy Technician &amp; Freelance Web Consultant</h3>
-        <p>Provided direct patient care in an inpatient rehab hospital. During the same period, I built WordPress sites and managed Google Ads and SEO for small-business clients.</p>
-      </div>
+    <div class="item">
+      <h3>Neural decoding research</h3>
+      <span class="when">Undergraduate researcher · Baylor</span>
+      <p>Contributed to a neural-decoding program classifying what a person was viewing from brain-scan data; ran independent research end to end and presented to neuroscience faculty.</p>
     </div>
-  </section>
+  </div>
+</div></section>
 
-  <section id="about">
-    <div class="section-label reveal">About</div>
-    <h2 class="reveal">About me</h2>
-    <div class="about-wrap">
-      <div class="reveal">
-        <p>I'm from Dallas and graduated from Baylor in 2026 with a degree in neuroscience. I ended up writing much more Python than I expected.</p>
-        <p>I like projects with a specific person on the other side. Most of mine began with a professor, a family member, or me wanting something that did not exist. I'm looking for work where I can combine technical problem-solving with the client and operations experience I already have.</p>
-      </div>
-      <div class="reveal">
-        <h4>Tools &amp; skills</h4>
-        <div class="skills">
-          <span class="tag">Python</span><span class="tag">SQL</span><span class="tag">JavaScript</span>
-          <span class="tag teal">FastAPI</span><span class="tag">React</span><span class="tag teal">Docker</span>
-          <span class="tag teal">Ollama</span><span class="tag">ChromaDB</span><span class="tag teal">RAG</span>
-          <span class="tag">Whisper / TTS</span><span class="tag teal">Model evals</span>
-          <span class="tag">Looker Studio</span><span class="tag teal">Neuroscience</span>
-        </div>
-      </div>
+<section id="experience"><div class="wrap">
+  <div class="sec-kicker">Experience</div>
+  <h2>Where I've worked</h2>
+  <div class="grid2">
+    <div class="item">
+      <h3>AI Model Evaluator — Mercor</h3>
+      <span class="when">May 2026 – present · contract</span>
+      <p>Evaluate frontier-LLM outputs for reasoning accuracy, factual consistency, and instruction-following against structured rubrics. I document failure modes precisely enough for someone else to reproduce them.</p>
     </div>
-  </section>
+    <div class="item">
+      <h3>AI Data Annotator — Outlier</h3>
+      <span class="when">Mar 2024 – May 2026 · contract</span>
+      <p>Labeled complex datasets and wrote precise instructions to improve model outputs and evaluation; calibrated with other raters and escalated edge cases to engineers.</p>
+    </div>
+    <div class="item">
+      <h3>Product &amp; Operations Analyst — Superior Data Science</h3>
+      <span class="when">Jan 2024 – Oct 2025 · B2B SaaS startup</span>
+      <p>Generalist across onboarding, analytics, and product ops. Redesigned client onboarding end to end (~30% faster time-to-value), built dashboards sales and product used to prioritize, and served as the translator between engineers and everyone else.</p>
+    </div>
+    <div class="item">
+      <h3>Therapy Technician — Encompass Health</h3>
+      <span class="when">Jan 2022 – Dec 2022 · inpatient rehabilitation</span>
+      <p>Direct patient and family care in a high-stress clinical unit; proactive expectation-setting contributed to a ~32% rise in unit satisfaction scores. Where I learned to translate complexity for people under pressure.</p>
+    </div>
+  </div>
+</div></section>
 
-  <section id="contact">
-    <div class="section-label reveal">Contact</div>
-    <h2 class="reveal">Get in touch</h2>
-    <p class="reveal" style="color: var(--muted); max-width: 58ch;">
-      I'm in Dallas and open to relocating. If something here is relevant to what you're working on, email
-      <a href="mailto:aryamaanseth@gmail.com" style="color: var(--accent-2); text-decoration: none;">aryamaanseth@gmail.com</a>. You can also find me on <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">LinkedIn</a>, look through my code on <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">GitHub</a>, or read my <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener" style="color: var(--accent-2); text-decoration: none;">résumé</a>.
-    </p>
-  </section>
-</main>
+<section id="about"><div class="wrap">
+  <div class="sec-kicker">About</div>
+  <h2>Neuroscience in, software out</h2>
+  <p class="lede">I graduated from Baylor in neuroscience and ended up writing far more Python than I expected. Now I'm doing an M.S. in Artificial Intelligence at CU Boulder while I work — currently deep in linear algebra and ML foundations, and loving it.</p>
+  <p style="color:var(--muted);max-width:700px">I like projects with a specific person on the other side — a professor, my parents, me. I build with AI assistance and verify relentlessly: evidence-grounded generation, audit trails, human-gated decisions. My edge isn't grinding algorithm puzzles; it's shipping working systems and sitting comfortably between the software and the people who need it.</p>
+  <div class="now">
+    <h3>Now</h3>
+    <p>Evaluating models at Mercor · M.S. AI coursework (linear algebra, ML) · hardening Apoapsis Harness · looking for a solutions / forward-deployed / product role at an AI company.</p>
+  </div>
+</div></section>
 
-<footer>
-  <div class="socials">
-    <a href="https://github.com/AdrianSeth1" target="_blank" rel="noopener">GitHub</a>
-    <a href="https://www.linkedin.com/in/aryamaanseth/" target="_blank" rel="noopener">LinkedIn</a>
-    <a href="docs/Aryamaan-Seth-Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+<section id="contact"><div class="wrap">
+  <div class="sec-kicker">Contact</div>
+  <h2>Hiring for a role where I'd fit?</h2>
+  <p class="lede">If you need someone who can build AI systems <em>and</em> sit with the customer, let's talk. I'm in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
+  <div class="cta">
+    <a class="btn primary" href="mailto:aryamaanseth@gmail.com">aryamaanseth@gmail.com</a>
+    <a class="btn ghost" href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
+    <a class="btn ghost" href="https://github.com/AdrianSeth1">GitHub</a>
+    <a class="btn ghost" href="docs/Aryamaan-Seth-Resume.pdf">Résumé</a>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <div class="links">
+    <a href="https://github.com/AdrianSeth1">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
     <a href="mailto:aryamaanseth@gmail.com">Email</a>
   </div>
-  © 2026 Aryamaan Seth
-</footer>
+  © 2026 Aryamaan Seth · built by hand, verified by habit
+</div></footer>
 
-<script>
-  // ---------- scroll reveal ----------
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-
-  // ---------- mobile nav ----------
-  const nav = document.getElementById('nav');
-  const toggle = nav.querySelector('.nav-toggle');
-  const setNav = open => { nav.classList.toggle('open', open); toggle.setAttribute('aria-expanded', open); };
-  toggle.addEventListener('click', () => setNav(!nav.classList.contains('open')));
-  nav.querySelectorAll('#nav-menu a').forEach(a => a.addEventListener('click', () => setNav(false)));
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') setNav(false); });
-
-  // ---------- scrollspy (active nav link) ----------
-  const navLinks = [...nav.querySelectorAll('#nav-menu a')];
-  const spy = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
-      }
-    });
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('main section[id]').forEach(s => spy.observe(s));
-
-  // ---------- card cursor glow ----------
-  document.querySelectorAll('.card').forEach(card => {
-    card.addEventListener('pointermove', e => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-
-  // ---------- animated neuron constellation ----------
-  (function () {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-    const canvas = document.getElementById('neural');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const COLOR = '145,132,217';
-    const LINK = 148;
-    let w = 0, h = 0, dpr = 1, nodes = [], pulses = [];
-    const mouse = { x: -9999, y: -9999, on: false };
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = innerWidth;
-      h = innerHeight;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const target = Math.max(28, Math.min(96, Math.round(w * h / 15000)));
-      nodes = [];
-      for (let i = 0; i < target; i++) {
-        nodes.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.16,
-          vy: (Math.random() - 0.5) * 0.16,
-          r: 1 + Math.random() * 1.6,
-          glow: 0
-        });
-      }
-    }
-
-    function neighbors(node) {
-      return nodes.filter(other => {
-        if (other === node) return false;
-        const dx = other.x - node.x;
-        const dy = other.y - node.y;
-        return dx * dx + dy * dy < LINK * LINK;
-      });
-    }
-
-    function fire(from, to) {
-      if (!to || pulses.length > 46) return;
-      pulses.push({ a: from, b: to, t: 0, speed: 0.012 + Math.random() * 0.016 });
-    }
-
-    function igniteRandom() {
-      if (!nodes.length) return;
-      const node = nodes[(Math.random() * nodes.length) | 0];
-      const nearby = neighbors(node);
-      if (nearby.length) {
-        node.glow = 1;
-        fire(node, nearby[(Math.random() * nearby.length) | 0]);
-      }
-    }
-
-    let last = performance.now();
-    let pulseClock = 0;
-    function step(now) {
-      const dt = Math.min(40, now - last);
-      last = now;
-      pulseClock += dt;
-      if (pulseClock > 620) {
-        pulseClock = 0;
-        igniteRandom();
-      }
-      ctx.clearRect(0, 0, w, h);
-
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
-        n.x = Math.max(0, Math.min(w, n.x));
-        n.y = Math.max(0, Math.min(h, n.y));
-        if (mouse.on) {
-          const dx = n.x - mouse.x;
-          const dy = n.y - mouse.y;
-          const distanceSquared = dx * dx + dy * dy;
-          if (distanceSquared < 130 * 130) {
-            n.glow = Math.max(n.glow, 1 - Math.sqrt(distanceSquared) / 130);
-          }
-        }
-        n.glow *= 0.94;
-      }
-
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = b.x - a.x, dy = b.y - a.y;
-          const d = Math.hypot(dx, dy);
-          if (d > LINK) continue;
-          let alpha = (1 - d / LINK) * 0.16;
-          alpha += Math.max(a.glow, b.glow) * 0.45;
-          ctx.strokeStyle = `rgba(${COLOR},${alpha.toFixed(3)})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-
-      for (const n of nodes) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r + n.glow * 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${COLOR},${(0.34 + n.glow * 0.6).toFixed(3)})`;
-        ctx.fill();
-      }
-
-      const alive = [];
-      for (const p of pulses) {
-        p.t += p.speed;
-        const x = p.a.x + (p.b.x - p.a.x) * p.t;
-        const y = p.a.y + (p.b.y - p.a.y) * p.t;
-        ctx.save();
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = `rgba(${COLOR},0.9)`;
-        ctx.beginPath();
-        ctx.arc(x, y, 2.4, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(233,233,237,0.95)';
-        ctx.fill();
-        ctx.restore();
-        if (p.t >= 1) {
-          p.b.glow = 1;
-          if (Math.random() < 0.62 && pulses.length < 40) {
-            const nearby = neighbors(p.b).filter(node => node !== p.a);
-            if (nearby.length) {
-              fire(p.b, nearby[(Math.random() * nearby.length) | 0]);
-              if (nearby.length > 2 && Math.random() < 0.35) {
-                fire(p.b, nearby[(Math.random() * nearby.length) | 0]);
-              }
-            }
-          }
-        } else {
-          alive.push(p);
-        }
-      }
-      pulses = alive;
-
-      requestAnimationFrame(step);
-    }
-
-    addEventListener('resize', resize);
-    addEventListener('pointermove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.on = true;
-      if (Math.random() < 0.14) {
-        let nearest = null;
-        let bestDistance = 90 * 90;
-        for (const node of nodes) {
-          const dx = node.x - mouse.x;
-          const dy = node.y - mouse.y;
-          const distanceSquared = dx * dx + dy * dy;
-          if (distanceSquared < bestDistance) {
-            bestDistance = distanceSquared;
-            nearest = node;
-          }
-        }
-        if (nearest) {
-          nearest.glow = 1;
-          const nearby = neighbors(nearest);
-          if (nearby.length) fire(nearest, nearby[(Math.random() * nearby.length) | 0]);
-        }
-      }
-    });
-    addEventListener('pointerleave', () => { mouse.on = false; });
-    resize();
-    requestAnimationFrame(step);
-  })();
-</script>
 </body>
 </html>
