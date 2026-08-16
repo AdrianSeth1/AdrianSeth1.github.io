@@ -103,13 +103,51 @@
   </table>
   <p>Showing where that line sits, and refusing to let the model cross it quietly, is the whole product.</p>
   <figure class="fig rv">
-  <a href="../assets/kitchen-finishes.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-finishes.webp" alt="Curated finish presets per surface, plus the contractor spec-sheet export. The preset library lives in JSON rather than code, so it grows without touching the pipeline." loading="lazy"></a>
-  <figcaption>Curated finish presets per surface, plus the contractor spec-sheet export. The preset library lives in JSON rather than code, so it grows without touching the pipeline.</figcaption>
+  <a href="../assets/kitchen-finishes.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-finishes.webp" alt="Curated finish presets per surface, plus the contractor spec-sheet export." loading="lazy"></a>
+  <figcaption>Curated finish presets per surface, plus the contractor spec-sheet export. The preset library lives in JSON rather than code, so a new finish is a one-line change.</figcaption>
 </figure>
 </div></section>
 
 <section><div class="wrap">
-  <div class="shead rv"><span class="snum">03</span><span class="slabel">Build notes</span><span class="srule"></span></div><h2 class="rv">The decisions that made comparison fair</h2>
+  <div class="shead rv"><span class="snum">03</span><span class="slabel">Output</span><span class="srule"></span></div>
+  <h2 class="rv">What it actually produces</h2>
+  <p class="lede rv">Every pair below is one photograph in and one render out, on a stock kitchen the model had never
+  seen. Left is the input, right is the result.</p>
+
+  <h3>Finish swap</h3>
+  <p>Core tier. The instruction names one surface and asks for everything else to hold still.</p>
+  <figure class="fig rv">
+    <a href="../assets/kitchen-ba-finish.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-ba-finish.webp" alt="Before and after: white shaker cabinets changed to matte sage green, with the backsplash, counters, island, stools and lighting unchanged." loading="lazy"></a>
+    <figcaption>&ldquo;change the cabinets to a matte sage green finish&rdquo; &middot; the mosaic backsplash, granite counters, butcher-block island, turquoise base, stools and pendants all hold</figcaption>
+  </figure>
+
+  <h3>Appliance replacement</h3>
+  <p>The refrigerator is swapped for a different one. The cabinetry it sits in does not move.</p>
+  <figure class="fig rv">
+    <a href="../assets/kitchen-ba-appliance.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-ba-appliance.webp" alt="Before and after: the stainless built-in refrigerator replaced with a matte black professional-style refrigerator, everything else unchanged." loading="lazy"></a>
+    <figcaption>&ldquo;replace the stainless steel refrigerator with a matte black professional-style refrigerator with vertical handles&rdquo;</figcaption>
+  </figure>
+
+  <h3>Fixture replacement</h3>
+  <p>Same idea, different object class. The fixtures change; their number and hanging position do not.</p>
+  <figure class="fig rv">
+    <a href="../assets/kitchen-ba-fixtures.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-ba-fixtures.webp" alt="Before and after: the two glass pendant lights replaced with large brushed brass globe fixtures, everything else unchanged." loading="lazy"></a>
+    <figcaption>&ldquo;replace the two pendant lights above the island with large brushed brass globe pendant fixtures&rdquo;</figcaption>
+  </figure>
+
+  <h3>One seed, three finishes</h3>
+  <p>This is the reason a fixed seed matters. Three separate generations, one changed word each, and the room stays
+  the same room. Without it you are comparing three different kitchens and learning nothing.</p>
+  <figure class="fig rv">
+    <a href="../assets/kitchen-variants.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-variants.webp" alt="Three A/B variants generated from one seed: sage green, navy blue and natural walnut cabinets, identical composition." loading="lazy"></a>
+    <figcaption>Sage green &middot; navy blue &middot; natural walnut. Same seed, same camera, same objects on the counter.</figcaption>
+  </figure>
+  <p style="margin-top:18px;font-size:.9rem;color:var(--muted)">Source photograph: CC0, via Wikimedia Commons. Renders
+  produced locally on an RTX 4090, roughly 60 seconds each.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">04</span><span class="slabel">Build notes</span><span class="srule"></span></div><h2 class="rv">The decisions that made comparison fair</h2>
   <ul class="plain">
     <li><b>One seed across an A/B set.</b> Only the instruction changes between variants, so the composition holds
     still and you are comparing finishes rather than comparing two different kitchens.</li>
@@ -124,10 +162,10 @@
   </ul>
   <div class="stack rv"><span>FLUX.1 Kontext</span><span>React + Vite</span><span>FastAPI</span><span>Pydantic</span><span>CUDA</span><span>Tailwind</span></div>
   <div class="callout rv">
-    <span class="lbl">What is missing from this page</span>
-    <p>A real before-and-after. The renders live on the machine with the GPU and the photos are of my parents' actual
-    house, so what you see here is the interface rather than the output. This is the one project where the picture is
-    the product, and the picture is not mine to publish.</p>
+    <span class="lbl">Where these renders came from</span>
+    <p>The pairs above were produced end to end on a stock photograph pulled from the web, so nothing here is
+    cherry-picked from a favourable input. The kitchen this was actually built for is my parents' house, and those
+    photos stay off the internet.</p>
   </div>
   <div class="plinks">
     <a class="repo strong" href="https://github.com/AdrianSeth1/Kitchen-remix">Source on GitHub <span class="arw">&rarr;</span></a>
