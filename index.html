@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aryamaan Seth — I build AI tools people actually use</title>
-<meta name="description" content="Aryamaan Seth builds local-first AI tools with real users — a lecture assistant deployed in a Baylor classroom, an agent verification harness, a full-stack automation platform. M.S. in Artificial Intelligence, CU Boulder.">
+<title>Aryamaan (Arya) Seth — AI Product Operations &amp; Solutions</title>
+<meta name="description" content="Aryamaan (Arya) Seth turns ambiguous workflows into evaluated, usable AI systems through product discovery, requirements, AI-assisted delivery, and LLM quality work.">
 <meta name="author" content="Aryamaan Seth">
-<meta property="og:title" content="Aryamaan Seth — I build AI tools people actually use">
-<meta property="og:description" content="Local-first AI tools with real users. M.S. in Artificial Intelligence. LLM evals at Mercor.">
+<meta property="og:title" content="Aryamaan (Arya) Seth — AI Product Operations &amp; Solutions">
+<meta property="og:description" content="Product discovery, AI-assisted delivery, and LLM evaluation — with real users and documented limits.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://adrianseth1.github.io/">
 <meta property="og:image" content="https://adrianseth1.github.io/og-image-v2.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Aryamaan Seth — I build AI tools people actually use">
-<meta name="twitter:description" content="Local-first AI tools with real users. M.S. in Artificial Intelligence. LLM evals at Mercor.">
+<meta name="twitter:title" content="Aryamaan (Arya) Seth — AI Product Operations &amp; Solutions">
+<meta name="twitter:description" content="Product discovery, AI-assisted delivery, and LLM evaluation — with real users and documented limits.">
 <meta name="twitter:image" content="https://adrianseth1.github.io/og-image-v2.png">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
@@ -54,6 +54,9 @@
   :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
   a{color:inherit;text-decoration:none}
   img{max-width:100%}
+  .skip-link{position:fixed;z-index:100;top:10px;left:10px;padding:9px 13px;border-radius:6px;
+    background:var(--teal);color:#06110f;font-weight:700;transform:translateY(-160%);transition:transform .2s}
+  .skip-link:focus{transform:none}
 
   /* ─── background layers ─────────────────────────────── */
   #neural{position:fixed;inset:0;z-index:0;display:block}
@@ -82,7 +85,8 @@
   nav.stuck{background:rgba(6,6,11,.82);border-bottom-color:var(--line)}
   .nav-in{max-width:var(--maxw);margin:0 auto;padding:0 26px;height:64px;
     display:flex;align-items:center;justify-content:space-between;gap:20px}
-  .logo{font-weight:800;letter-spacing:-.02em;font-size:1.05rem;display:flex;align-items:center;gap:9px}
+  .logo{font-weight:800;letter-spacing:-.02em;font-size:1rem;display:flex;align-items:center;gap:9px;white-space:nowrap}
+  .logo .alias{color:var(--muted);font-weight:600}
   .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);
     box-shadow:0 0 10px var(--teal);animation:breathe 3.4s ease-in-out infinite}
   @keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
@@ -200,6 +204,32 @@
   .repo{margin-top:18px;font-family:var(--mono);font-size:.8rem;color:var(--teal);
     display:inline-flex;align-items:center;gap:8px;transition:gap .25s}
   .repo:hover{gap:12px}
+  .proj-featured{border-color:rgba(77,214,193,.32);background:
+    linear-gradient(180deg,rgba(77,214,193,.055),rgba(255,255,255,.014))}
+  .evidence-figure{margin-top:22px;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    background:#080d0f;box-shadow:0 24px 60px -42px rgba(77,214,193,.8)}
+  .evidence-figure a{display:block;line-height:0}
+  .evidence-figure img{display:block;width:100%;height:auto}
+  .evidence-figure figcaption{padding:11px 14px;line-height:1.5;font-family:var(--mono);
+    font-size:.68rem;color:var(--muted);border-top:1px solid var(--line-soft)}
+  .walkthrough{margin-top:20px;border:1px solid var(--line);border-radius:12px;padding:20px;
+    background:rgba(0,0,0,.18)}
+  .walk-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:13px}
+  .walk-head h4{font-size:1rem;letter-spacing:-.01em}
+  .walk-head span{font-family:var(--mono);font-size:.66rem;color:var(--teal);text-transform:uppercase;letter-spacing:.1em}
+  .walkthrough ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .walkthrough li{border:1px solid var(--line-soft);border-radius:9px;padding:13px 14px;
+    color:var(--dim);font-size:.86rem;background:rgba(255,255,255,.018)}
+  .walkthrough li b{display:block;color:var(--text);font-size:.85rem;margin-bottom:4px}
+  .walkthrough .step{font-family:var(--mono);color:var(--violet-hot);margin-right:7px}
+  .ownership{margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .owner-card{border:1px solid var(--line);border-radius:10px;padding:15px;background:rgba(255,255,255,.018)}
+  .owner-card h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--teal);margin-bottom:7px}
+  .owner-card p{font-size:.84rem;line-height:1.55;margin:0;color:var(--muted)}
+  .honesty-note{margin-top:14px;padding:11px 14px;border-left:2px solid var(--teal);
+    background:rgba(77,214,193,.055);color:var(--dim);font-size:.86rem}
+  #verity,#verity-walkthrough{scroll-margin-top:84px}
 
   /* ─── item grid ─────────────────────────────────────── */
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:46px}
@@ -254,6 +284,7 @@
   @media(max-width:900px){
     .about-grid{grid-template-columns:1fr;gap:26px}
     .now{position:static}
+    .ownership{grid-template-columns:1fr}
   }
   @media(max-width:760px){
     .grid2{grid-template-columns:1fr}
@@ -264,11 +295,16 @@
     .burger{display:block}
     nav ul{position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;
       background:rgba(6,6,11,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
-      max-height:0;overflow:hidden;transition:max-height .35s cubic-bezier(.2,.7,.3,1)}
-    nav.open ul{max-height:300px}
+      max-height:0;overflow:hidden;visibility:hidden;pointer-events:none;
+      transition:max-height .35s cubic-bezier(.2,.7,.3,1),visibility 0s linear .35s}
+    nav.open ul{max-height:300px;visibility:visible;pointer-events:auto;transition-delay:0s}
     nav ul li{border-top:1px solid var(--line-soft)}
     nav ul a{display:block;padding:15px 26px;font-size:.85rem}
     nav ul a::after{display:none}
+    .walkthrough{padding:16px}
+    .walkthrough ol{grid-template-columns:1fr}
+    .walk-head{align-items:flex-start;flex-direction:column;gap:3px}
+    .evidence-figure figcaption{font-size:.63rem}
     .hint{display:none}
   }
   @media(prefers-reduced-motion:reduce){
@@ -280,6 +316,7 @@
 </head>
 <body>
 
+<a class="skip-link" href="#projects">Skip to projects</a>
 <div class="progress" id="prog"></div>
 <canvas id="neural" aria-hidden="true"></canvas>
 <div class="veil" aria-hidden="true"></div>
@@ -287,7 +324,7 @@
 
 <nav id="nav">
   <div class="nav-in">
-    <a href="#top" class="logo">arya<span class="dot"></span></a>
+    <a href="#top" class="logo">Aryamaan <span class="alias">(Arya)</span> Seth<span class="dot"></span></a>
     <ul id="menu">
       <li><a href="#projects">Projects</a></li>
       <li><a href="#research">Research</a></li>
@@ -295,7 +332,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
-    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">
+    <button class="burger" id="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -304,14 +341,14 @@
 <main id="top">
 
 <header class="hero"><div class="wrap">
-  <div class="eyebrow fade" style="animation-delay:.05s">Dallas–Fort Worth · open to SF / LA / NYC / Portland / remote</div>
+  <div class="eyebrow fade" style="animation-delay:.05s">AI product operations · solutions discovery · LLM evaluation</div>
   <h1 class="fade" style="animation-delay:.16s">I build AI tools <em>people actually use</em>.</h1>
-  <p class="sub fade" style="animation-delay:.3s">I'm Arya — an AI builder finishing an M.S. in Artificial Intelligence. My lecture assistant runs in a real Baylor classroom. My tools run locally, keep humans in charge of decisions that matter, and are honest about what they can't do.</p>
+  <p class="sub fade" style="animation-delay:.3s">I'm Aryamaan (Arya) Seth. I own discovery, research, requirements, evaluation, and delivery; AI coding agents help me implement. The result is useful systems with real users, clear human gates, and documented limits. Based in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
   <div class="readouts fade" style="animation-delay:.42s">
     <div class="readout"><b>Deployed:</b> prof-ai, in live classroom use</div>
+    <div class="readout"><b>Verity:</b> paper-only evidence lab</div>
     <div class="readout"><b>M.S. Artificial Intelligence</b> · CU Boulder · 4.0</div>
     <div class="readout"><b>LLM evals</b> @ Mercor</div>
-    <div class="readout"><b>2×</b> hackathon winner</div>
   </div>
   <div class="cta fade" style="animation-delay:.54s">
     <a class="btn primary" href="#projects">See my work <span class="arw">→</span></a>
@@ -323,13 +360,61 @@
 
 <section id="projects"><div class="wrap">
   <div class="shead rv"><span class="snum">01</span><span class="slabel">Projects</span><span class="srule"></span></div>
-  <h2 class="rv">Working software, real users</h2>
-  <p class="lede rv">Every project here started with a specific person's problem and ended with something that runs. Code is public, rough edges included.</p>
+  <h2 class="rv">AI-assisted systems, evidence included</h2>
+  <p class="lede rv">Each case starts with a real problem and a written definition of what good looks like. I show what I owned, where AI implemented, and how the result was checked.</p>
 
   <div class="projects">
 
-    <article class="proj rv">
+    <article class="proj proj-featured rv" id="verity">
       <div class="idx">01</div>
+      <div>
+        <span class="ptag">AI product operations · Research system</span>
+        <h3>Verity — BTC evidence lab <span class="live">paper only</span></h3>
+        <p>A local research lab that streams Coinbase and read-only Kalshi data, compares a settlement model with market prices, journals every decision, and returns <strong>no-trade</strong> when the evidence is weak. There is no order-entry method and no real-money execution.</p>
+
+        <figure class="evidence-figure">
+          <a href="assets/verity-dashboard.webp" target="_blank" rel="noopener" aria-label="Open the full Verity dashboard screenshot">
+            <img src="assets/verity-dashboard.webp" width="2560" height="1303" loading="lazy" alt="Verity paper-only research dashboard showing live Coinbase and Kalshi status, a Bitcoin chart, settlement probability compared with the market midpoint, a no-trade decision, a decision ledger, and model comparison panels.">
+          </a>
+          <figcaption>Product snapshot · paper research outputs only · execution disabled · no profitability claim</figcaption>
+        </figure>
+
+        <div class="walkthrough" id="verity-walkthrough">
+          <div class="walk-head">
+            <h4>60-second walkthrough</h4>
+            <span>read time · about 60 sec</span>
+          </div>
+          <ol>
+            <li><b><span class="step">01</span>Set the boundary</b>Coinbase supplies public market data; Kalshi access is read-only. The product observes and records. It cannot place an order.</li>
+            <li><b><span class="step">02</span>Compare the evidence</b>A settlement-aware estimate sits beside the same-snapshot market midpoint, with source quality, timing, and uncertainty kept visible.</li>
+            <li><b><span class="step">03</span>Gate the decision</b>Missing evidence, weak expected edge, or unreliable timing produces no-trade. Signals and rejected decisions remain in an audit ledger.</li>
+            <li><b><span class="step">04</span>Test the story</b>The comparison view currently says the market baseline is stronger. That is the useful result: reject the exciting claim and keep execution disabled.</li>
+          </ol>
+        </div>
+
+        <div class="ownership" aria-label="Verity ownership and implementation disclosure">
+          <div class="owner-card">
+            <h4>I owned</h4>
+            <p>Problem framing, source and settlement-rule research, product requirements, acceptance criteria, evaluation gates, UI priorities, and the go / no-go decisions.</p>
+          </div>
+          <div class="owner-card">
+            <h4>AI implemented</h4>
+            <p>Coding agents generated substantial parts of the code, tests, and documentation from my plans, then revised the system through iterative feedback.</p>
+          </div>
+          <div class="owner-card">
+            <h4>Evidence bar</h4>
+            <p>Paper-only operation, read-only data access, causal timing checks, journaled decisions, explicit rejection gates, and conclusions that can say “not proven.”</p>
+          </div>
+        </div>
+
+        <div class="honesty-note"><strong>How I work:</strong> I use AI coding agents as the implementation layer. My value is deciding what to build, translating research into precise constraints, and refusing to call the result successful until the evidence supports it.</div>
+        <div class="stack"><span>Product requirements</span><span>Research protocol</span><span>Evaluation gates</span><span>Decision audit</span><span>AI-agent orchestration</span></div>
+        <a class="repo" href="assets/verity-dashboard.webp" target="_blank" rel="noopener">Open full product screenshot <span class="arw">→</span></a>
+      </div>
+    </article>
+
+    <article class="proj rv">
+      <div class="idx">02</div>
       <div>
         <span class="ptag">AI · Audio · Education</span>
         <h3>prof-ai — local AI lecture assistant <span class="live">in classroom use</span></h3>
@@ -340,13 +425,13 @@
         </details>
         <!-- TODO: paste professor quote here once received:
         <div class="quote">"…" <small>— Professor X, Baylor University</small></div> -->
-        <div class="stack"><span>Python</span><span>Ollama</span><span>ChromaDB</span><span>faster-whisper</span><span>Piper TTS</span><span>RAG</span></div>
+        <div class="stack"><span>Python</span><span>Ollama</span><span>ChromaDB</span><span>faster-whisper</span><span>Kokoro TTS</span><span>RAG</span></div>
         <a class="repo" href="https://github.com/AdrianSeth1/prof-ai">View on GitHub <span class="arw">→</span></a>
       </div>
     </article>
 
     <article class="proj rv">
-      <div class="idx">02</div>
+      <div class="idx">03</div>
       <div>
         <span class="ptag">AI · Full-stack platform</span>
         <h3>AutoApply — job-search automation platform</h3>
@@ -361,7 +446,7 @@
     </article>
 
     <article class="proj rv">
-      <div class="idx">03</div>
+      <div class="idx">04</div>
       <div>
         <span class="ptag">AI · Developer tools</span>
         <h3>Apoapsis Harness — verification layer for coding agents</h3>
@@ -376,7 +461,7 @@
     </article>
 
     <article class="proj rv">
-      <div class="idx">04</div>
+      <div class="idx">05</div>
       <div>
         <span class="ptag">AI · Image editing</span>
         <h3>Kitchen Remix — AI remodel visualizer</h3>
@@ -453,19 +538,19 @@
 
 <section id="about"><div class="wrap">
   <div class="shead rv"><span class="snum">04</span><span class="slabel">About</span><span class="srule"></span></div>
-  <h2 class="rv">Neuroscience in, software out</h2>
+  <h2 class="rv">Neuroscience in, product judgment out</h2>
   <div class="about-grid">
     <div class="rv">
-      <p>I graduated from Baylor in neuroscience and ended up writing far more Python than I expected. Now I'm doing an M.S. in Artificial Intelligence at CU Boulder while I work — currently deep in linear algebra and ML foundations, and loving it.</p>
-      <p>I like projects with a specific person on the other side — a professor, my parents, me. I build with AI assistance and verify relentlessly: evidence-grounded generation, audit trails, human-gated decisions. My edge isn't grinding algorithm puzzles; it's shipping working systems and sitting comfortably between the software and the people who need it.</p>
+      <p>I studied neuroscience at Baylor and now work at the intersection of AI, product operations, and people. I'm completing an M.S. in Artificial Intelligence at CU Boulder while evaluating model outputs at Mercor.</p>
+      <p>My workflow is research-first: understand the problem, investigate the domain with AI, turn the findings into a plan and acceptance criteria, direct coding agents through implementation, and test whether the behavior matches the plan. I am not presenting myself as a traditional software engineer. I am strongest at product judgment, workflow design, evaluation, documentation, and translating between a user and a technical system.</p>
     </div>
     <aside class="now rv">
       <h3>Now</h3>
       <ul>
         <li>Evaluating models at Mercor</li>
         <li>M.S. AI coursework (linear algebra, ML)</li>
-        <li>Hardening Apoapsis Harness</li>
-        <li>Looking for a solutions / forward-deployed / product role at an AI company</li>
+        <li>Running Verity as a paper-only evidence lab</li>
+        <li>Looking for AI product operations, implementation, solutions, or evaluation work</li>
       </ul>
     </aside>
   </div>
@@ -474,7 +559,7 @@
 <section id="contact"><div class="wrap">
   <div class="shead rv"><span class="snum">05</span><span class="slabel">Contact</span><span class="srule"></span></div>
   <h2 class="contact-h rv">Hiring for a role where I'd fit?</h2>
-  <p class="lede rv">If you need someone who can build AI systems <em style="font-style:normal;color:var(--violet-hot)">and</em> sit with the customer, let's talk. I'm in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
+  <p class="lede rv">If you need someone who can uncover the real workflow, define what good looks like, direct AI-assisted delivery, and keep the customer and the evidence in the loop, let's talk. I'm in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
   <div class="rv"><a class="mail" href="mailto:aryamaanseth@gmail.com">aryamaanseth@gmail.com</a></div>
   <div class="cta rv">
     <a class="btn ghost" href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
@@ -491,7 +576,7 @@
     <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
     <a href="mailto:aryamaanseth@gmail.com">Email</a>
   </div>
-  <div class="sig">© 2026 Aryamaan Seth · built by hand, verified by habit</div>
+  <div class="sig">© 2026 Aryamaan Seth · AI-assisted, human-directed, evidence over hype</div>
 </div></footer>
 
 <script>
@@ -511,14 +596,29 @@
 
   /* ---------- mobile menu ---------- */
   const burger = document.getElementById('burger');
+  const menu = document.getElementById('menu');
+  const mobileNav = matchMedia('(max-width: 760px)');
+  function setMenuOpen(open) {
+    const mobileOpen = mobileNav.matches && open;
+    nav.classList.toggle('open', mobileOpen);
+    burger.setAttribute('aria-expanded', String(mobileOpen));
+    burger.setAttribute('aria-label', mobileOpen ? 'Close menu' : 'Menu');
+    menu.inert = mobileNav.matches && !mobileOpen;
+  }
   burger.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    burger.setAttribute('aria-expanded', open);
+    setMenuOpen(!nav.classList.contains('open'));
   });
   document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => {
-    nav.classList.remove('open');
-    burger.setAttribute('aria-expanded', 'false');
+    setMenuOpen(false);
   }));
+  addEventListener('keydown', e => {
+    if (e.key === 'Escape' && nav.classList.contains('open')) {
+      setMenuOpen(false);
+      burger.focus();
+    }
+  });
+  mobileNav.addEventListener('change', () => setMenuOpen(false));
+  setMenuOpen(false);
 
   /* ---------- scroll reveal (staggered) ---------- */
   if (!reduce) {
