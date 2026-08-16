@@ -27,292 +27,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<style>
-  :root{
-    --bg:#06060b;
-    --bg-lift:rgba(255,255,255,.028);
-    --line:rgba(255,255,255,.085);
-    --line-soft:rgba(255,255,255,.05);
-    --text:#ececf4;
-    --dim:#c0c0d0;
-    --muted:#8e8ea6;
-    --violet:#9184d9;
-    --violet-hot:#b3a6ff;
-    --teal:#4dd6c1;
-    --maxw:1120px;
-    --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-  body{
-    background:var(--bg);color:var(--text);font-family:var(--font);
-    line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased;
-  }
-  ::selection{background:rgba(145,132,217,.35);color:#fff}
-  :focus-visible{outline:2px solid var(--teal);outline-offset:3px;border-radius:3px}
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%}
-  .skip-link{position:fixed;z-index:100;top:10px;left:10px;padding:9px 13px;border-radius:6px;
-    background:var(--teal);color:#06110f;font-weight:700;transform:translateY(-160%);transition:transform .2s}
-  .skip-link:focus{transform:none}
-
-  /* ─── background layers ─────────────────────────────── */
-  #neural{position:fixed;inset:0;z-index:0;display:block}
-  .veil{
-    position:fixed;inset:0;z-index:1;pointer-events:none;
-    background:
-      radial-gradient(90% 60% at 50% -10%, rgba(145,132,217,.14), transparent 62%),
-      radial-gradient(70% 50% at 88% 8%, rgba(77,214,193,.07), transparent 60%),
-      linear-gradient(180deg, rgba(6,6,11,.30) 0%, rgba(6,6,11,.62) 45%, rgba(6,6,11,.86) 100%);
-  }
-  .grain{
-    position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.22;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
-  }
-  nav,main,footer,.progress{position:relative;z-index:3}
-
-  /* ─── scroll progress ───────────────────────────────── */
-  .progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;
-    background:linear-gradient(90deg,var(--violet),var(--teal));
-    box-shadow:0 0 12px rgba(145,132,217,.7)}
-
-  /* ─── nav ───────────────────────────────────────────── */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;
-    background:rgba(6,6,11,.55);backdrop-filter:blur(16px) saturate(140%);
-    border-bottom:1px solid var(--line-soft);transition:background .3s,border-color .3s}
-  nav.stuck{background:rgba(6,6,11,.82);border-bottom-color:var(--line)}
-  .nav-in{max-width:var(--maxw);margin:0 auto;padding:0 26px;height:64px;
-    display:flex;align-items:center;justify-content:space-between;gap:20px}
-  .logo{font-weight:800;letter-spacing:-.02em;font-size:1rem;display:flex;align-items:center;gap:9px;white-space:nowrap}
-  .logo .alias{color:var(--muted);font-weight:600}
-  .logo .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);
-    box-shadow:0 0 10px var(--teal);animation:breathe 3.4s ease-in-out infinite}
-  @keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.78)}}
-  nav ul{display:flex;gap:26px;list-style:none}
-  nav ul a{font-family:var(--mono);font-size:.78rem;letter-spacing:.04em;color:var(--muted);
-    position:relative;padding:4px 0;transition:color .25s}
-  nav ul a:hover{color:var(--text)}
-  nav ul a.on{color:var(--text)}
-  nav ul a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:1.5px;border-radius:2px;
-    background:linear-gradient(90deg,var(--violet),var(--teal));transition:right .3s cubic-bezier(.2,.7,.3,1)}
-  nav ul a.on::after,nav ul a:hover::after{right:0}
-  .burger{display:none;background:none;border:0;cursor:pointer;width:40px;height:40px;padding:9px}
-  .burger span{display:block;width:20px;height:1.6px;background:var(--text);margin:4px auto;border-radius:2px;
-    transition:transform .3s,opacity .3s}
-  nav.open .burger span:nth-child(1){transform:translateY(5.6px) rotate(45deg)}
-  nav.open .burger span:nth-child(2){opacity:0}
-  nav.open .burger span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg)}
-
-  /* ─── layout ────────────────────────────────────────── */
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 26px}
-  section{padding:104px 0;position:relative}
-  section + section::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;
-    background:linear-gradient(90deg,transparent 8%,var(--line) 50%,transparent 92%)}
-
-  /* ─── hero ──────────────────────────────────────────── */
-  .hero{position:relative;min-height:100vh;min-height:100svh;
-    display:flex;flex-direction:column;justify-content:center;padding:120px 0 90px}
-  .eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--teal);display:flex;align-items:center;gap:11px;margin-bottom:26px}
-  .eyebrow::before{content:"";width:26px;height:1px;background:var(--teal);opacity:.6}
-  h1{font-size:clamp(2.5rem,7.2vw,5rem);line-height:1.03;font-weight:800;letter-spacing:-.035em;max-width:15ch}
-  h1 em{font-style:normal;
-    background:linear-gradient(100deg,var(--violet-hot) 0%,var(--teal) 92%);
-    -webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{margin-top:26px;max-width:58ch;color:var(--dim);font-size:clamp(1rem,1.5vw,1.16rem)}
-  .readouts{display:flex;flex-wrap:wrap;gap:9px;margin-top:34px}
-  .readout{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em;color:var(--dim);
-    border:1px solid var(--line);background:rgba(255,255,255,.03);backdrop-filter:blur(8px);
-    border-radius:6px;padding:7px 13px;display:flex;align-items:center;gap:8px;transition:border-color .3s,transform .3s}
-  .readout:hover{border-color:rgba(145,132,217,.5);transform:translateY(-2px)}
-  .readout b{color:var(--violet-hot);font-weight:600}
-  .readout::before{content:"";width:4px;height:4px;border-radius:50%;background:var(--teal);flex:none;opacity:.8}
-  .cta{display:flex;gap:13px;flex-wrap:wrap;margin-top:40px}
-  .btn{font-size:.92rem;font-weight:600;padding:13px 24px;border-radius:8px;
-    transition:transform .28s cubic-bezier(.2,.7,.3,1),box-shadow .28s,border-color .28s,background .28s;
-    display:inline-flex;align-items:center;gap:9px}
-  .btn.primary{background:linear-gradient(100deg,var(--violet) 0%,#7d6fd0 55%,var(--teal) 190%);color:#0a0813;
-    box-shadow:0 10px 34px -12px rgba(145,132,217,.85)}
-  .btn.primary:hover{transform:translateY(-3px);box-shadow:0 18px 44px -12px rgba(145,132,217,1)}
-  .btn.ghost{border:1px solid var(--line);color:var(--text);background:rgba(255,255,255,.02);backdrop-filter:blur(8px)}
-  .btn.ghost:hover{transform:translateY(-3px);border-color:rgba(145,132,217,.55);background:rgba(145,132,217,.09)}
-  .btn .arw{transition:transform .28s}
-  .btn:hover .arw{transform:translateX(3px)}
-  .hint{position:absolute;bottom:34px;left:26px;font-family:var(--mono);font-size:.68rem;
-    letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
-  .hint i{display:block;width:1px;height:34px;background:linear-gradient(180deg,var(--teal),transparent);
-    animation:drip 2.4s ease-in-out infinite}
-  @keyframes drip{0%,100%{opacity:.25;transform:scaleY(.5);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
-  .fade{opacity:0;animation:rise .85s cubic-bezier(.2,.7,.3,1) forwards}
-  @keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-
-  /* ─── section headers ───────────────────────────────── */
-  .shead{display:flex;align-items:baseline;gap:16px;margin-bottom:14px}
-  .snum{font-family:var(--mono);font-size:.76rem;color:var(--violet);letter-spacing:.1em}
-  .slabel{font-family:var(--mono);font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .srule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
-  h2{font-size:clamp(1.75rem,3.6vw,2.5rem);font-weight:800;letter-spacing:-.025em;line-height:1.15}
-  .lede{color:var(--muted);max-width:62ch;margin-top:12px;font-size:1rem}
-
-  /* ─── project slabs ─────────────────────────────────── */
-  .projects{margin-top:52px;display:flex;flex-direction:column;gap:18px}
-  .proj{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:16px;
-    background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
-    backdrop-filter:blur(10px);padding:30px 32px;display:grid;grid-template-columns:64px 1fr;gap:6px 22px;
-    transition:transform .4s cubic-bezier(.2,.7,.3,1),border-color .4s,box-shadow .4s}
-  .proj::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .4s;
-    background:radial-gradient(460px circle at var(--mx,50%) var(--my,50%),rgba(145,132,217,.16),transparent 62%)}
-  .proj:hover::before{opacity:1}
-  .proj:hover{transform:translateY(-4px);border-color:rgba(145,132,217,.42);
-    box-shadow:0 22px 60px -30px rgba(145,132,217,.75)}
-  .proj .idx{font-family:var(--mono);font-size:.78rem;color:var(--violet);
-    padding-top:5px;letter-spacing:.06em;position:relative}
-  .proj .idx::after{content:"";position:absolute;left:2px;top:34px;bottom:2px;width:1px;
-    background:linear-gradient(180deg,rgba(145,132,217,.5),transparent)}
-  .ptag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
-  .proj h3{font-size:1.34rem;font-weight:700;letter-spacing:-.02em;margin:7px 0 0;
-    display:flex;align-items:center;flex-wrap:wrap;gap:10px}
-  .live{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
-    color:var(--teal);border:1px solid rgba(77,214,193,.38);background:rgba(77,214,193,.1);
-    border-radius:999px;padding:3px 11px;display:inline-flex;align-items:center;gap:7px}
-  .live::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--teal);
-    box-shadow:0 0 0 0 rgba(77,214,193,.7);animation:ping 2s cubic-bezier(.2,.7,.3,1) infinite}
-  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(77,214,193,.6)}70%{box-shadow:0 0 0 7px rgba(77,214,193,0)}100%{box-shadow:0 0 0 0 rgba(77,214,193,0)}}
-  .proj p{color:var(--dim);margin-top:12px;font-size:.98rem;max-width:74ch}
-  .deep{margin-top:16px;border-top:1px solid var(--line-soft)}
-  .deep summary{cursor:pointer;list-style:none;font-family:var(--mono);font-size:.74rem;letter-spacing:.1em;
-    text-transform:uppercase;color:var(--violet-hot);padding:13px 0 0;display:flex;align-items:center;gap:9px;
-    transition:color .25s}
-  .deep summary::-webkit-details-marker{display:none}
-  .deep summary:hover{color:var(--teal)}
-  .deep summary .pm{width:13px;height:13px;position:relative;flex:none}
-  .deep summary .pm::before,.deep summary .pm::after{content:"";position:absolute;background:currentColor;
-    border-radius:2px;transition:transform .3s cubic-bezier(.2,.7,.3,1)}
-  .deep summary .pm::before{left:0;right:0;top:6px;height:1.5px}
-  .deep summary .pm::after{top:0;bottom:0;left:6px;width:1.5px}
-  .deep[open] summary .pm::after{transform:rotate(90deg)}
-  .deep .body{color:var(--muted);font-size:.94rem;padding:12px 0 4px;max-width:76ch;
-    border-left:2px solid rgba(145,132,217,.35);padding-left:16px;margin-top:10px;
-    animation:unfold .4s ease}
-  @keyframes unfold{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
-  .stack{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px}
-  .stack span{font-family:var(--mono);font-size:.71rem;color:var(--muted);border:1px solid var(--line);
-    border-radius:5px;padding:4px 9px;transition:color .25s,border-color .25s}
-  .proj:hover .stack span{color:var(--dim);border-color:rgba(255,255,255,.14)}
-  .repo{margin-top:18px;font-family:var(--mono);font-size:.8rem;color:var(--teal);
-    display:inline-flex;align-items:center;gap:8px;transition:gap .25s}
-  .repo:hover{gap:12px}
-  .proj-featured{border-color:rgba(77,214,193,.32);background:
-    linear-gradient(180deg,rgba(77,214,193,.055),rgba(255,255,255,.014))}
-  .evidence-figure{margin-top:22px;border:1px solid var(--line);border-radius:12px;overflow:hidden;
-    background:#080d0f;box-shadow:0 24px 60px -42px rgba(77,214,193,.8)}
-  .evidence-figure a{display:block;line-height:0}
-  .evidence-figure img{display:block;width:100%;height:auto}
-  .evidence-figure figcaption{padding:11px 14px;line-height:1.5;font-family:var(--mono);
-    font-size:.68rem;color:var(--muted);border-top:1px solid var(--line-soft)}
-  .walkthrough{margin-top:20px;border:1px solid var(--line);border-radius:12px;padding:20px;
-    background:rgba(0,0,0,.18)}
-  .walk-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:13px}
-  .walk-head h4{font-size:1rem;letter-spacing:-.01em}
-  .walk-head span{font-family:var(--mono);font-size:.66rem;color:var(--teal);text-transform:uppercase;letter-spacing:.1em}
-  .walkthrough ol{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .walkthrough li{border:1px solid var(--line-soft);border-radius:9px;padding:13px 14px;
-    color:var(--dim);font-size:.86rem;background:rgba(255,255,255,.018)}
-  .walkthrough li b{display:block;color:var(--text);font-size:.85rem;margin-bottom:4px}
-  .walkthrough .step{font-family:var(--mono);color:var(--violet-hot);margin-right:7px}
-  .ownership{margin-top:12px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
-  .owner-card{border:1px solid var(--line);border-radius:10px;padding:15px;background:rgba(255,255,255,.018)}
-  .owner-card h4{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
-    color:var(--teal);margin-bottom:7px}
-  .owner-card p{font-size:.84rem;line-height:1.55;margin:0;color:var(--muted)}
-  .honesty-note{margin-top:14px;padding:11px 14px;border-left:2px solid var(--teal);
-    background:rgba(77,214,193,.055);color:var(--dim);font-size:.86rem}
-  #verity,#verity-walkthrough{scroll-margin-top:84px}
-
-  /* ─── item grid ─────────────────────────────────────── */
-  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:46px}
-  .item{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:14px;padding:24px 26px;
-    background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.008));backdrop-filter:blur(10px);
-    display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.2,.7,.3,1),border-color .35s}
-  .item::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s;
-    background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(145,132,217,.14),transparent 62%)}
-  .item:hover::before{opacity:1}
-  .item:hover{transform:translateY(-4px);border-color:rgba(145,132,217,.4)}
-  .item h3{font-size:1.04rem;font-weight:700;letter-spacing:-.01em;line-height:1.35}
-  .when{font-family:var(--mono);font-size:.71rem;color:var(--teal);letter-spacing:.03em;margin-top:8px;display:block}
-  .item p{color:var(--muted);font-size:.93rem;margin-top:11px}
-  .item .repo{margin-top:auto;padding-top:16px}
-
-  /* ─── about / now ───────────────────────────────────── */
-  .about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;margin-top:34px;align-items:start}
-  .about-grid p{color:var(--dim);font-size:1rem}
-  .about-grid p + p{margin-top:16px}
-  .now{border:1px solid var(--line);border-radius:14px;padding:24px 26px;
-    background:linear-gradient(180deg,rgba(145,132,217,.09),rgba(255,255,255,.01));backdrop-filter:blur(10px);
-    position:sticky;top:96px}
-  .now h3{font-family:var(--mono);font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;
-    color:var(--teal);display:flex;align-items:center;gap:9px;margin-bottom:14px}
-  .now h3::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--teal);
-    box-shadow:0 0 0 0 rgba(77,214,193,.7);animation:ping 2s cubic-bezier(.2,.7,.3,1) infinite}
-  .now ul{list-style:none;display:flex;flex-direction:column;gap:11px}
-  .now li{color:var(--dim);font-size:.93rem;padding-left:18px;position:relative}
-  .now li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--violet)}
-
-  /* ─── contact ───────────────────────────────────────── */
-  .contact-h{font-size:clamp(2rem,5.2vw,3.4rem);font-weight:800;letter-spacing:-.035em;line-height:1.08;max-width:16ch}
-  .mail{display:inline-block;margin-top:26px;font-size:clamp(1.1rem,2.8vw,1.9rem);font-weight:700;
-    letter-spacing:-.025em;background:linear-gradient(100deg,var(--violet-hot),var(--teal));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    border-bottom:1px solid rgba(145,132,217,.35);padding-bottom:4px;transition:border-color .3s}
-  .mail:hover{border-color:var(--teal)}
-
-  /* ─── footer ────────────────────────────────────────── */
-  footer{padding:44px 0 52px;border-top:1px solid var(--line-soft);color:var(--muted);font-size:.86rem}
-  .foot-in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-  .foot-links{display:flex;gap:20px;font-family:var(--mono);font-size:.78rem}
-  .foot-links a{transition:color .25s}
-  .foot-links a:hover{color:var(--teal)}
-  .sig{font-family:var(--mono);font-size:.74rem;letter-spacing:.02em}
-
-  /* ─── reveal ────────────────────────────────────────── */
-  .rv{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
-  .rv.in{opacity:1;transform:none}
-
-  /* ─── responsive ────────────────────────────────────── */
-  @media(max-width:900px){
-    .about-grid{grid-template-columns:1fr;gap:26px}
-    .now{position:static}
-    .ownership{grid-template-columns:1fr}
-  }
-  @media(max-width:760px){
-    .grid2{grid-template-columns:1fr}
-    section{padding:76px 0}
-    .proj{grid-template-columns:1fr;padding:26px 22px;gap:0}
-    .proj .idx{grid-row:auto;padding-top:0;margin-bottom:10px}
-    .proj .idx::after{display:none}
-    .burger{display:block}
-    nav ul{position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;
-      background:rgba(6,6,11,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);
-      max-height:0;overflow:hidden;visibility:hidden;pointer-events:none;
-      transition:max-height .35s cubic-bezier(.2,.7,.3,1),visibility 0s linear .35s}
-    nav.open ul{max-height:300px;visibility:visible;pointer-events:auto;transition-delay:0s}
-    nav ul li{border-top:1px solid var(--line-soft)}
-    nav ul a{display:block;padding:15px 26px;font-size:.85rem}
-    nav ul a::after{display:none}
-    .walkthrough{padding:16px}
-    .walkthrough ol{grid-template-columns:1fr}
-    .walk-head{align-items:flex-start;flex-direction:column;gap:3px}
-    .evidence-figure figcaption{font-size:.63rem}
-    .hint{display:none}
-  }
-  @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-    .rv,.fade{opacity:1;transform:none}
-    #neural{display:none}
-  }
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 
@@ -343,10 +58,10 @@
 <header class="hero"><div class="wrap">
   <div class="eyebrow fade" style="animation-delay:.05s">AI product operations · solutions discovery · LLM evaluation</div>
   <h1 class="fade" style="animation-delay:.16s">I build AI tools <em>people actually use</em>.</h1>
-  <p class="sub fade" style="animation-delay:.3s">I'm Aryamaan (Arya) Seth. I own discovery, research, requirements, evaluation, and delivery; AI coding agents help me implement. The result is useful systems with real users, clear human gates, and documented limits. Based in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
+  <p class="sub fade" style="animation-delay:.3s">I'm Aryamaan (Arya) Seth. I own the discovery, the requirements, the evaluation and the call on whether something is ready. AI coding agents do the implementation. What comes out has real users, a human in the loop where it matters, and its limits written down. Based in Dallas–Fort Worth, open to SF, LA, NYC, Portland or remote.</p>
   <div class="readouts fade" style="animation-delay:.42s">
     <div class="readout"><b>Deployed:</b> prof-ai, in live classroom use</div>
-    <div class="readout"><b>Verity:</b> paper-only evidence lab</div>
+    <div class="readout"><b>Verity:</b> live on real capital</div>
     <div class="readout"><b>M.S. Artificial Intelligence</b> · CU Boulder · 4.0</div>
     <div class="readout"><b>LLM evals</b> @ Mercor</div>
   </div>
@@ -361,7 +76,7 @@
 <section id="projects"><div class="wrap">
   <div class="shead rv"><span class="snum">01</span><span class="slabel">Projects</span><span class="srule"></span></div>
   <h2 class="rv">AI-assisted systems, evidence included</h2>
-  <p class="lede rv">Each case starts with a real problem and a written definition of what good looks like. I show what I owned, where AI implemented, and how the result was checked.</p>
+  <p class="lede rv">Five systems, each with a case study behind it. Every one starts from a real problem and a written definition of what good looks like. I show what I owned, what the agents built, how it was checked, and where the claim stops.</p>
 
   <div class="projects">
 
@@ -369,47 +84,20 @@
       <div class="idx">01</div>
       <div>
         <span class="ptag">AI product operations · Research system</span>
-        <h3>Verity — BTC evidence lab <span class="live">paper only</span></h3>
-        <p>A local research lab that streams Coinbase and read-only Kalshi data, compares a settlement model with market prices, journals every decision, and returns <strong>no-trade</strong> when the evidence is weak. There is no order-entry method and no real-money execution.</p>
-
-        <figure class="evidence-figure">
-          <a href="assets/verity-dashboard.webp" target="_blank" rel="noopener" aria-label="Open the full Verity dashboard screenshot">
-            <img src="assets/verity-dashboard.webp" width="2560" height="1303" loading="lazy" alt="Verity paper-only research dashboard showing live Coinbase and Kalshi status, a Bitcoin chart, settlement probability compared with the market midpoint, a no-trade decision, a decision ledger, and model comparison panels.">
-          </a>
-          <figcaption>Product snapshot · paper research outputs only · execution disabled · no profitability claim</figcaption>
+        <h3>Verity — BTC settlement lab <span class="live">live · real capital</span></h3>
+        <p>A local research lab that prices Bitcoin settlement markets on Kalshi against live Coinbase data, journals
+        every decision, and returns <strong>no-trade</strong> when the evidence is thin. It ran paper-only for months.
+        Version 4 cleared the gates I wrote for it, so I turned on real money. Five days in, up $540, and I am still
+        not calling that proof of edge.</p>
+        <figure class="fig" style="margin-top:20px">
+          <img src="assets/verity-dashboard.webp" width="2560" height="1303" loading="lazy"
+               alt="Verity dashboard showing live Coinbase and Kalshi status, settlement probability against the market midpoint, a no-trade decision, and the decision ledger.">
+          <figcaption>The dashboard during the paper-only phase, execution disabled. That banner is what it looked like while it was still earning the right to trade.</figcaption>
         </figure>
-
-        <div class="walkthrough" id="verity-walkthrough">
-          <div class="walk-head">
-            <h4>60-second walkthrough</h4>
-            <span>read time · about 60 sec</span>
-          </div>
-          <ol>
-            <li><b><span class="step">01</span>Set the boundary</b>Coinbase supplies public market data; Kalshi access is read-only. The product observes and records. It cannot place an order.</li>
-            <li><b><span class="step">02</span>Compare the evidence</b>A settlement-aware estimate sits beside the same-snapshot market midpoint, with source quality, timing, and uncertainty kept visible.</li>
-            <li><b><span class="step">03</span>Gate the decision</b>Missing evidence, weak expected edge, or unreliable timing produces no-trade. Signals and rejected decisions remain in an audit ledger.</li>
-            <li><b><span class="step">04</span>Test the story</b>The comparison view currently says the market baseline is stronger. That is the useful result: reject the exciting claim and keep execution disabled.</li>
-          </ol>
+        <div class="stack"><span>Product requirements</span><span>Research protocol</span><span>Evaluation gates</span><span>Decision audit</span><span>Live market data</span></div>
+        <div class="plinks">
+          <a class="repo strong" href="projects/verity.html">Read the case study <span class="arw">→</span></a>
         </div>
-
-        <div class="ownership" aria-label="Verity ownership and implementation disclosure">
-          <div class="owner-card">
-            <h4>I owned</h4>
-            <p>Problem framing, source and settlement-rule research, product requirements, acceptance criteria, evaluation gates, UI priorities, and the go / no-go decisions.</p>
-          </div>
-          <div class="owner-card">
-            <h4>AI implemented</h4>
-            <p>Coding agents generated substantial parts of the code, tests, and documentation from my plans, then revised the system through iterative feedback.</p>
-          </div>
-          <div class="owner-card">
-            <h4>Evidence bar</h4>
-            <p>Paper-only operation, read-only data access, causal timing checks, journaled decisions, explicit rejection gates, and conclusions that can say “not proven.”</p>
-          </div>
-        </div>
-
-        <div class="honesty-note"><strong>How I work:</strong> I use AI coding agents as the implementation layer. My value is deciding what to build, translating research into precise constraints, and refusing to call the result successful until the evidence supports it.</div>
-        <div class="stack"><span>Product requirements</span><span>Research protocol</span><span>Evaluation gates</span><span>Decision audit</span><span>AI-agent orchestration</span></div>
-        <a class="repo" href="assets/verity-dashboard.webp" target="_blank" rel="noopener">Open full product screenshot <span class="arw">→</span></a>
       </div>
     </article>
 
@@ -417,16 +105,19 @@
       <div class="idx">02</div>
       <div>
         <span class="ptag">AI · Audio · Education</span>
-        <h3>prof-ai — local AI lecture assistant <span class="live">in classroom use</span></h3>
-        <p>A voice-interactive classroom assistant built end to end: live lecture transcription, retrieval-augmented Q&amp;A grounded in the professor's own course materials, and spoken answers through a web interface. A Baylor professor uses it in class today.</p>
-        <details class="deep">
-          <summary><span class="pm"></span>Under the hood</summary>
-          <div class="body">Everything — transcription, retrieval, language model, speech synthesis — runs on one local machine. Zero per-query cost and no student or course data leaving the room is what made adoption possible with no budget and no procurement process. I scoped it sitting next to the professor: a lecture / question / processing state machine, multi-turn conversation mode, and iteration driven by what actually happened in class.</div>
-        </details>
-        <!-- TODO: paste professor quote here once received:
-        <div class="quote">"…" <small>— Professor X, Baylor University</small></div> -->
-        <div class="stack"><span>Python</span><span>Ollama</span><span>ChromaDB</span><span>faster-whisper</span><span>Kokoro TTS</span><span>RAG</span></div>
-        <a class="repo" href="https://github.com/AdrianSeth1/prof-ai">View on GitHub <span class="arw">→</span></a>
+        <h3>prof-ai — local lecture assistant <span class="live">in classroom use</span></h3>
+        <p>Listens to a live lecture, answers questions out loud from the professor's own materials, and afterwards
+        reports which concepts the lecture skipped. All of it runs on one machine in the room, so there is no bill and
+        no student audio leaving the building. A Baylor professor uses it in class.</p>
+        <figure class="pcard-fig">
+          <img src="assets/profai-gaps.webp" width="2000" height="1250" loading="lazy"
+               alt="prof-ai gap analysis showing findings graded uncovered, partial and covered, each with a quoted lecture moment and its source.">
+        </figure>
+        <div class="stack"><span>Python</span><span>faster-whisper</span><span>ChromaDB</span><span>Ollama</span><span>Piper TTS</span><span>React</span><span>RAG</span></div>
+        <div class="plinks">
+          <a class="repo strong" href="projects/prof-ai.html">Read the case study <span class="arw">→</span></a>
+          <a class="repo" href="https://github.com/AdrianSeth1/prof-ai">GitHub <span class="arw">→</span></a>
+        </div>
       </div>
     </article>
 
@@ -434,29 +125,39 @@
       <div class="idx">03</div>
       <div>
         <span class="ptag">AI · Full-stack platform</span>
-        <h3>AutoApply — job-search automation platform</h3>
-        <p>What started as "a script to fill forms" became a multi-service platform: a Vue 3 SPA over a FastAPI backend, PostgreSQL, Redis/Celery workers, and local LLMs — searching job sources, scoring fit with explainable rules, and generating tailored, fact-checked application documents.</p>
-        <details class="deep">
-          <summary><span class="pm"></span>Under the hood</summary>
-          <div class="body">The interesting engineering is in the guardrails: document generation is evidence-grounded (bullets come from a verified pool with fact-drift validation, so the LLM can't invent achievements), every submission is gated behind a human review queue, and scoring produces an explainable breakdown instead of a black-box number. Caching, deduplication across job sources, and a version ledger keep a 1,000+ document pipeline auditable.</div>
-        </details>
-        <div class="stack"><span>FastAPI</span><span>Vue 3</span><span>PostgreSQL</span><span>Celery / Redis</span><span>Playwright</span><span>Ollama</span><span>SQLAlchemy</span></div>
-        <a class="repo" href="https://github.com/AdrianSeth1/auto-apply">View on GitHub <span class="arw">→</span></a>
+        <h3>AutoApply — job-search platform</h3>
+        <p>Searches job sources, scores fit with a breakdown you can argue with, and writes tailored documents from a
+        verified pool of facts so the model cannot invent achievements. Nothing reaches an employer without a person
+        approving it. There is no autopilot setting, on purpose.</p>
+        <figure class="pcard-fig">
+          <img src="assets/autoapply-review.webp" width="2000" height="1250" loading="lazy"
+               alt="AutoApply review board with applications waiting on human approval before submission.">
+        </figure>
+        <div class="stack"><span>FastAPI</span><span>Vue 3</span><span>PostgreSQL</span><span>Celery / Redis</span><span>Playwright</span><span>Ollama</span></div>
+        <div class="plinks">
+          <a class="repo strong" href="projects/autoapply.html">Read the case study <span class="arw">→</span></a>
+          <a class="repo" href="https://github.com/AdrianSeth1/auto-apply">GitHub <span class="arw">→</span></a>
+        </div>
       </div>
     </article>
 
     <article class="proj rv">
       <div class="idx">04</div>
       <div>
-        <span class="ptag">AI · Developer tools</span>
+        <span class="ptag">AI · Developer tools · Evaluation</span>
         <h3>Apoapsis Harness — verification layer for coding agents</h3>
-        <p>An experiment in splitting coding-agent work between local and hosted models: local models handle routine search, edits, and checks; harder planning escalates with only the context it needs — and the system knows when to stop for a person.</p>
-        <details class="deep">
-          <summary><span class="pm"></span>Under the hood</summary>
-          <div class="body">Task state, git worktrees, context retrieval, and a full audit trail live in SQLite + Git, so agent work happens in a bounded sandbox where it can't damage the main tree. In my testing it matches or beats an unharnessed local model while staying cheaper than sending everything to a frontier model — a concrete way to test routing ideas instead of arguing about them in the abstract.</div>
-        </details>
-        <div class="stack"><span>Python</span><span>SQLite</span><span>Git</span><span>Ollama</span><span>ripgrep</span></div>
-        <a class="repo" href="https://github.com/AdrianSeth1/apoapsis-harness">View on GitHub <span class="arw">→</span></a>
+        <p>Models propose. The harness controls files, commands, verification and the decision that work is finished.
+        Then I measured my own system properly and found six of seven completed slices could not point at the evidence
+        that justified completing them. That finding is published, in full, on the case study.</p>
+        <figure class="pcard-fig">
+          <img src="assets/apoapsis-overview.webp" width="2000" height="1250" loading="lazy"
+               alt="Apoapsis local control surface showing task records, configuration state, and the authority boundary.">
+        </figure>
+        <div class="stack"><span>Python</span><span>SQLite</span><span>Git worktrees</span><span>Ollama</span><span>Docker</span><span>Evaluation design</span></div>
+        <div class="plinks">
+          <a class="repo strong" href="projects/apoapsis.html">Read the case study <span class="arw">→</span></a>
+          <a class="repo" href="https://github.com/AdrianSeth1/apoapsis-harness">GitHub <span class="arw">→</span></a>
+        </div>
       </div>
     </article>
 
@@ -464,14 +165,19 @@
       <div class="idx">05</div>
       <div>
         <span class="ptag">AI · Image editing</span>
-        <h3>Kitchen Remix — AI remodel visualizer</h3>
-        <p>Built for my parents mid-remodel: turns a photo of a real kitchen into previews of new cabinets, counters, floors, and paint — running FLUX.1 Kontext locally so family photos never leave the machine.</p>
-        <details class="deep">
-          <summary><span class="pm"></span>Under the hood</summary>
-          <div class="body">The model is good at changing finishes and much less trustworthy at inventing geometry, so the UI labels every render by reliability tier instead of presenting all output with equal confidence. Knowing where a model is guessing is half the product.</div>
-        </details>
+        <h3>Kitchen Remix — AI remodel previews</h3>
+        <p>Built for my parents mid-remodel. Turns a photo of a real kitchen into previews of new cabinets, counters,
+        floors and paint, running FLUX.1 Kontext locally so the photos stay on the machine. Every edit is sorted by how
+        much the model has to invent, and the ones that invent are labelled as such.</p>
+        <figure class="pcard-fig">
+          <img src="assets/kitchen-finishes.webp" width="2000" height="669" loading="lazy"
+               alt="Kitchen Remix finish presets per surface plus the contractor spec-sheet export.">
+        </figure>
         <div class="stack"><span>FLUX.1 Kontext</span><span>React + Vite</span><span>FastAPI</span><span>CUDA</span></div>
-        <a class="repo" href="https://github.com/AdrianSeth1/Kitchen-remix">View on GitHub <span class="arw">→</span></a>
+        <div class="plinks">
+          <a class="repo strong" href="projects/kitchen-remix.html">Read the case study <span class="arw">→</span></a>
+          <a class="repo" href="https://github.com/AdrianSeth1/Kitchen-remix">GitHub <span class="arw">→</span></a>
+        </div>
       </div>
     </article>
 
@@ -542,15 +248,15 @@
   <div class="about-grid">
     <div class="rv">
       <p>I studied neuroscience at Baylor and now work at the intersection of AI, product operations, and people. I'm completing an M.S. in Artificial Intelligence at CU Boulder while evaluating model outputs at Mercor.</p>
-      <p>My workflow is research-first: understand the problem, investigate the domain with AI, turn the findings into a plan and acceptance criteria, direct coding agents through implementation, and test whether the behavior matches the plan. I am not presenting myself as a traditional software engineer. I am strongest at product judgment, workflow design, evaluation, documentation, and translating between a user and a technical system.</p>
+      <p>I work research-first. Understand the problem, investigate the domain, turn what I find into a plan with acceptance criteria I can actually test against, direct coding agents through the build, then check whether the behaviour matches what I specified. I am not a traditional software engineer and I do not present myself as one. What I am good at is product judgment, workflow design, evaluation, and standing between a user and a technical system without either side losing the plot.</p>
     </div>
     <aside class="now rv">
       <h3>Now</h3>
       <ul>
         <li>Evaluating models at Mercor</li>
         <li>M.S. AI coursework (linear algebra, ML)</li>
-        <li>Running Verity as a paper-only evidence lab</li>
-        <li>Looking for AI product operations, implementation, solutions, or evaluation work</li>
+        <li>Running Verity live on real capital, small size, gates on</li>
+        <li>Looking for AI product operations, solutions or evaluation work</li>
       </ul>
     </aside>
   </div>
@@ -559,7 +265,7 @@
 <section id="contact"><div class="wrap">
   <div class="shead rv"><span class="snum">05</span><span class="slabel">Contact</span><span class="srule"></span></div>
   <h2 class="contact-h rv">Hiring for a role where I'd fit?</h2>
-  <p class="lede rv">If you need someone who can uncover the real workflow, define what good looks like, direct AI-assisted delivery, and keep the customer and the evidence in the loop, let's talk. I'm in Dallas–Fort Worth and open to SF, LA, NYC, Portland, or remote.</p>
+  <p class="lede rv">If you need someone who can find the real workflow, write down what good looks like, direct AI-assisted delivery against it, and tell you plainly when the result does not clear the bar, let's talk. I'm in Dallas–Fort Worth and open to SF, LA, NYC, Portland or remote.</p>
   <div class="rv"><a class="mail" href="mailto:aryamaanseth@gmail.com">aryamaanseth@gmail.com</a></div>
   <div class="cta rv">
     <a class="btn ghost" href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
@@ -576,270 +282,9 @@
     <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
     <a href="mailto:aryamaanseth@gmail.com">Email</a>
   </div>
-  <div class="sig">© 2026 Aryamaan Seth · AI-assisted, human-directed, evidence over hype</div>
+  <div class="sig">© 2026 Aryamaan Seth · built in the open, limits included</div>
 </div></footer>
 
-<script>
-(function(){
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  /* ---------- scroll progress + sticky nav ---------- */
-  const prog = document.getElementById('prog');
-  const nav  = document.getElementById('nav');
-  function onScroll(){
-    const max = document.documentElement.scrollHeight - innerHeight;
-    prog.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
-    nav.classList.toggle('stuck', scrollY > 24);
-  }
-  addEventListener('scroll', onScroll, {passive:true});
-  onScroll();
-
-  /* ---------- mobile menu ---------- */
-  const burger = document.getElementById('burger');
-  const menu = document.getElementById('menu');
-  const mobileNav = matchMedia('(max-width: 760px)');
-  function setMenuOpen(open) {
-    const mobileOpen = mobileNav.matches && open;
-    nav.classList.toggle('open', mobileOpen);
-    burger.setAttribute('aria-expanded', String(mobileOpen));
-    burger.setAttribute('aria-label', mobileOpen ? 'Close menu' : 'Menu');
-    menu.inert = mobileNav.matches && !mobileOpen;
-  }
-  burger.addEventListener('click', () => {
-    setMenuOpen(!nav.classList.contains('open'));
-  });
-  document.querySelectorAll('#menu a').forEach(a => a.addEventListener('click', () => {
-    setMenuOpen(false);
-  }));
-  addEventListener('keydown', e => {
-    if (e.key === 'Escape' && nav.classList.contains('open')) {
-      setMenuOpen(false);
-      burger.focus();
-    }
-  });
-  mobileNav.addEventListener('change', () => setMenuOpen(false));
-  setMenuOpen(false);
-
-  /* ---------- scroll reveal (staggered) ---------- */
-  if (!reduce) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((e, i) => {
-        if (!e.isIntersecting) return;
-        e.target.style.transitionDelay = Math.min(i * 70, 280) + 'ms';
-        e.target.classList.add('in');
-        io.unobserve(e.target);
-      });
-    }, {threshold: 0.12, rootMargin: '0px 0px -8% 0px'});
-    document.querySelectorAll('.rv').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.rv').forEach(el => el.classList.add('in'));
-  }
-
-  /* ---------- nav scrollspy ---------- */
-  const links = [...document.querySelectorAll('#menu a')];
-  const spy = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      links.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + e.target.id));
-    });
-  }, {rootMargin: '-45% 0px -50% 0px'});
-  document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
-
-  /* ---------- cursor spotlight on cards ---------- */
-  document.querySelectorAll('.proj, .item').forEach(card => {
-    card.addEventListener('pointermove', e => {
-      const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-      card.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
-  });
-
-  /* ---------- animated neuron constellation ---------- */
-  (function () {
-    if (reduce) return;
-    const canvas = document.getElementById('neural');
-    if (!canvas) return;
-    const ctx = canvas.getContext('2d');
-    const COLOR = '145,132,217';
-    const LINK = 148;
-    let w = 0, h = 0, dpr = 1, nodes = [], pulses = [];
-    const mouse = { x: -9999, y: -9999, on: false };
-
-    function resize() {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      w = innerWidth;
-      h = innerHeight;
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
-      canvas.style.width = w + 'px';
-      canvas.style.height = h + 'px';
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const target = Math.max(28, Math.min(96, Math.round(w * h / 15000)));
-      nodes = [];
-      for (let i = 0; i < target; i++) {
-        nodes.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          vx: (Math.random() - 0.5) * 0.16,
-          vy: (Math.random() - 0.5) * 0.16,
-          r: 1 + Math.random() * 1.6,
-          glow: 0
-        });
-      }
-    }
-
-    function neighbors(node) {
-      return nodes.filter(other => {
-        if (other === node) return false;
-        const dx = other.x - node.x;
-        const dy = other.y - node.y;
-        return dx * dx + dy * dy < LINK * LINK;
-      });
-    }
-
-    function fire(from, to) {
-      if (!to || pulses.length > 46) return;
-      pulses.push({ a: from, b: to, t: 0, speed: 0.012 + Math.random() * 0.016 });
-    }
-
-    function igniteRandom() {
-      if (!nodes.length) return;
-      const node = nodes[(Math.random() * nodes.length) | 0];
-      const nearby = neighbors(node);
-      if (nearby.length) {
-        node.glow = 1;
-        fire(node, nearby[(Math.random() * nearby.length) | 0]);
-      }
-    }
-
-    let last = performance.now();
-    let pulseClock = 0;
-    function step(now) {
-      const dt = Math.min(40, now - last);
-      last = now;
-      pulseClock += dt;
-      if (pulseClock > 620) {
-        pulseClock = 0;
-        igniteRandom();
-      }
-      ctx.clearRect(0, 0, w, h);
-
-      for (const n of nodes) {
-        n.x += n.vx;
-        n.y += n.vy;
-        if (n.x < 0 || n.x > w) n.vx *= -1;
-        if (n.y < 0 || n.y > h) n.vy *= -1;
-        n.x = Math.max(0, Math.min(w, n.x));
-        n.y = Math.max(0, Math.min(h, n.y));
-        if (mouse.on) {
-          const dx = n.x - mouse.x;
-          const dy = n.y - mouse.y;
-          const distanceSquared = dx * dx + dy * dy;
-          if (distanceSquared < 130 * 130) {
-            n.glow = Math.max(n.glow, 1 - Math.sqrt(distanceSquared) / 130);
-          }
-        }
-        n.glow *= 0.94;
-      }
-
-      for (let i = 0; i < nodes.length; i++) {
-        for (let j = i + 1; j < nodes.length; j++) {
-          const a = nodes[i], b = nodes[j];
-          const dx = b.x - a.x, dy = b.y - a.y;
-          const d = Math.hypot(dx, dy);
-          if (d > LINK) continue;
-          let alpha = (1 - d / LINK) * 0.16;
-          alpha += Math.max(a.glow, b.glow) * 0.45;
-          ctx.strokeStyle = `rgba(${COLOR},${alpha.toFixed(3)})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(a.x, a.y);
-          ctx.lineTo(b.x, b.y);
-          ctx.stroke();
-        }
-      }
-
-      for (const n of nodes) {
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, n.r + n.glow * 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${COLOR},${(0.34 + n.glow * 0.6).toFixed(3)})`;
-        ctx.fill();
-      }
-
-      const alive = [];
-      for (const p of pulses) {
-        p.t += p.speed;
-        const x = p.a.x + (p.b.x - p.a.x) * p.t;
-        const y = p.a.y + (p.b.y - p.a.y) * p.t;
-        ctx.save();
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = `rgba(${COLOR},0.9)`;
-        ctx.beginPath();
-        ctx.arc(x, y, 2.4, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(233,233,237,0.95)';
-        ctx.fill();
-        ctx.restore();
-        if (p.t >= 1) {
-          p.b.glow = 1;
-          if (Math.random() < 0.62 && pulses.length < 40) {
-            const nearby = neighbors(p.b).filter(node => node !== p.a);
-            if (nearby.length) {
-              fire(p.b, nearby[(Math.random() * nearby.length) | 0]);
-              if (nearby.length > 2 && Math.random() < 0.35) {
-                fire(p.b, nearby[(Math.random() * nearby.length) | 0]);
-              }
-            }
-          }
-        } else {
-          alive.push(p);
-        }
-      }
-      pulses = alive;
-
-      requestAnimationFrame(step);
-    }
-
-    let rt;
-    addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(resize, 120); });
-    addEventListener('pointermove', e => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-      mouse.on = true;
-      if (Math.random() < 0.14) {
-        let nearest = null;
-        let bestDistance = 90 * 90;
-        for (const node of nodes) {
-          const dx = node.x - mouse.x;
-          const dy = node.y - mouse.y;
-          const distanceSquared = dx * dx + dy * dy;
-          if (distanceSquared < bestDistance) {
-            bestDistance = distanceSquared;
-            nearest = node;
-          }
-        }
-        if (nearest) {
-          nearest.glow = 1;
-          const nearby = neighbors(nearest);
-          if (nearby.length) fire(nearest, nearby[(Math.random() * nearby.length) | 0]);
-        }
-      }
-    });
-    addEventListener('pointerleave', () => { mouse.on = false; });
-    addEventListener('pointerdown', e => {
-      mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = true;
-      for (const node of nodes) {
-        const dx = node.x - mouse.x, dy = node.y - mouse.y;
-        if (dx * dx + dy * dy < 170 * 170) {
-          node.glow = 1;
-          const nearby = neighbors(node);
-          if (nearby.length && Math.random() < 0.5) fire(node, nearby[(Math.random() * nearby.length) | 0]);
-        }
-      }
-    });
-    resize();
-    requestAnimationFrame(step);
-  })();
-})();
-</script>
+<script src="assets/site.js" defer></script>
 </body>
 </html>

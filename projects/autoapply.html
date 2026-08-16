@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoApply — job-search platform with a human gate | Aryamaan Seth</title>
+<meta name="description" content="Fact-grounded document generation, explainable scoring, and a review queue nothing gets past without a person approving it.">
+<meta name="author" content="Aryamaan Seth">
+<meta property="og:title" content="AutoApply — job-search platform with a human gate | Aryamaan Seth">
+<meta property="og:description" content="Fact-grounded document generation, explainable scoring, and a review queue nothing gets past without a person approving it.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://adrianseth1.github.io/projects/autoapply.html">
+<meta property="og:image" content="https://adrianseth1.github.io/assets/autoapply-review.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AutoApply — job-search platform with a human gate | Aryamaan Seth">
+<meta name="twitter:description" content="Fact-grounded document generation, explainable scoring, and a review queue nothing gets past without a person approving it.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/assets/autoapply-review.webp">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://adrianseth1.github.io/projects/autoapply.html">
+<meta name="theme-color" content="#06060b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="case">
+
+<a class="skip-link" href="#story">Skip to the case study</a>
+<div class="progress" id="prog"></div>
+<canvas id="neural" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../index.html#top" class="logo">Aryamaan <span class="alias">(Arya)</span> Seth<span class="dot"></span></a>
+    <ul id="menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#research">Research</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="top">
+
+<header class="case-hero"><div class="wrap">
+  <a class="backlink" href="../index.html#projects">&larr; All projects</a>
+  <span class="ptag">AI &middot; Full-stack platform</span>
+  <h1 class="fade">The guardrails are the product</h1>
+  <p class="sub fade" style="animation-delay:.15s">AutoApply searches job sources, scores fit with a breakdown you can
+    argue with, and writes tailored application documents from a verified pool of facts. Nothing reaches an employer
+    without a human approving it.</p>
+  <div class="badges fade" style="animation-delay:.28s">
+    <span class="badge"><b>7</b> pipeline stages</span>
+    <span class="badge"><b>1,000+</b> document versions tracked</span>
+    <span class="badge">Human gate before every submit</span>
+    <span class="badge">Local LLM, no per-token bill</span>
+  </div>
+</div></header>
+
+<section id="story"><div class="wrap">
+  <div class="shead rv"><span class="snum">01</span><span class="slabel">The problem</span><span class="srule"></span></div><h2 class="rv">It started as a script and the script was wrong</h2>
+  <p>The first version filled forms. That is the version everybody builds, and it fails for a reason that has nothing
+  to do with automation quality: a language model writing your resume will invent achievements. Not maliciously. It
+  fills a gap because the prompt asked for a compelling bullet and a compelling bullet was not available.</p>
+  <p>Sending that to an employer under your own name is the actual risk in this product. Everything interesting in
+  the build is a response to it.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">02</span><span class="slabel">The gate</span><span class="srule"></span></div><h2 class="rv">A queue you have to walk through</h2>
+  <p>Prepared applications land in a review board and stop there. Approve, skip, or bulk-skip everything matching a
+  pattern. There is no autopilot setting, because the whole argument of the system is that the last call is a
+  person's.</p>
+  <figure class="fig rv">
+  <a href="../assets/autoapply-review.webp" target="_blank" rel="noopener"><img src="../assets/autoapply-review.webp" alt="The review board. Applications wait in "Waiting on you" until a human approves them; nothing moves to submitted on its own." loading="lazy"></a>
+  <figcaption>The review board. Applications wait in "Waiting on you" until a human approves them; nothing moves to submitted on its own.</figcaption>
+</figure>
+  <p>Each card carries the posting link and the generated documents, so approving is an informed act rather than a
+  reflex. "I applied manually" exists because half the time the right move is to go do it yourself, and the system
+  should record that instead of pretending it did the work.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">03</span><span class="slabel">Fact grounding</span><span class="srule"></span></div><h2 class="rv">The model does not get to make things up</h2>
+  <p>Document generation reads from a verified pool of claims rather than from free imagination. Every bullet traces
+  to something in the pool. A drift check runs over the finished document and flags any assertion that did not come
+  from there.</p>
+  <p>Scoring works the same way. Instead of a single opaque number, each match decomposes into weighted factors with
+  the evidence attached, so a low score is a readable argument rather than a verdict. When the system says a role is a
+  0.74, you can see that it scored 0.30 on fintech background and decide whether you agree.</p>
+  <figure class="fig rv">
+  <a href="../assets/autoapply-dashboard.webp" target="_blank" rel="noopener"><img src="../assets/autoapply-dashboard.webp" alt="Pipeline funnel from discovery through response. The drop from 1,284 scored to 214 shortlisted is the filtering doing its job." loading="lazy"></a>
+  <figcaption>Pipeline funnel from discovery through response. The drop from 1,284 scored to 214 shortlisted is the filtering doing its job.</figcaption>
+</figure>
+  <p>That funnel is the honest picture of what this kind of system is for. Volume in, ruthless narrowing, small number
+  of considered applications out. A tool that submitted all 1,284 would be worse than useless.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">04</span><span class="slabel">Under the hood</span><span class="srule"></span></div><h2 class="rv">Where the complexity actually lives</h2>
+  <ul class="plain">
+    <li><b>Deduplication across sources.</b> The same role appears on three boards with three different titles.
+    Collapsing those correctly is unglamorous and it is most of what makes the pipeline usable.</li>
+    <li><b>A version ledger.</b> Over a thousand generated documents, each tied to the job, the profile and the
+    template that produced it. Without that, debugging a bad generation is guesswork.</li>
+    <li><b>Async where it matters.</b> Celery workers over Redis handle the long jobs so the interface never blocks on
+    a model call, and cached responses keep repeat scoring cheap.</li>
+    <li><b>Explainable by construction.</b> The score breakdown is not a post-hoc explanation of a black box. It is how
+    the score is computed.</li>
+  </ul>
+  <div class="stack rv"><span>FastAPI</span><span>Vue 3</span><span>PostgreSQL</span><span>Celery / Redis</span><span>Playwright</span><span>Ollama</span><span>SQLAlchemy</span></div>
+  <div class="callout rv">
+    <span class="lbl">On these screenshots</span>
+    <p>Real interface, real pipeline, sample data. My live instance holds my own applications and other people's job
+    history, so the numbers here are representative rather than lifted from the running database.</p>
+  </div>
+  <div class="plinks">
+    <a class="repo strong" href="https://github.com/AdrianSeth1/auto-apply">Source on GitHub <span class="arw">&rarr;</span></a>
+  </div>
+</div></section>
+
+<section class="case-next"><div class="wrap row">
+  <div><span>Previous case</span><a href="../projects/prof-ai.html">prof-ai, in a real classroom &rarr;</a></div>
+  <div><span>Next case</span><a href="../projects/apoapsis.html">Apoapsis, where I broke my own claim &rarr;</a></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot-in">
+  <div class="foot-links">
+    <a href="https://github.com/AdrianSeth1">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
+    <a href="mailto:aryamaanseth@gmail.com">Email</a>
+  </div>
+  <div class="sig">&copy; 2026 Aryamaan Seth &middot; built in the open, limits included</div>
+</div></footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

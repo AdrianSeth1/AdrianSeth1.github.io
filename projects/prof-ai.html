@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>prof-ai — local AI lecture assistant in classroom use | Aryamaan Seth</title>
+<meta name="description" content="A voice-interactive lecture assistant running entirely on one local machine. Live transcription, grounded Q&A, and gap analysis that finds what the lecture skipped.">
+<meta name="author" content="Aryamaan Seth">
+<meta property="og:title" content="prof-ai — local AI lecture assistant in classroom use | Aryamaan Seth">
+<meta property="og:description" content="A voice-interactive lecture assistant running entirely on one local machine. Live transcription, grounded Q&A, and gap analysis that finds what the lecture skipped.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://adrianseth1.github.io/projects/prof-ai.html">
+<meta property="og:image" content="https://adrianseth1.github.io/assets/profai-gaps.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="prof-ai — local AI lecture assistant in classroom use | Aryamaan Seth">
+<meta name="twitter:description" content="A voice-interactive lecture assistant running entirely on one local machine. Live transcription, grounded Q&A, and gap analysis that finds what the lecture skipped.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/assets/profai-gaps.webp">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://adrianseth1.github.io/projects/prof-ai.html">
+<meta name="theme-color" content="#06060b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="case">
+
+<a class="skip-link" href="#story">Skip to the case study</a>
+<div class="progress" id="prog"></div>
+<canvas id="neural" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../index.html#top" class="logo">Aryamaan <span class="alias">(Arya)</span> Seth<span class="dot"></span></a>
+    <ul id="menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#research">Research</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="top">
+
+<header class="case-hero"><div class="wrap">
+  <a class="backlink" href="../index.html#projects">&larr; All projects</a>
+  <span class="ptag">AI &middot; Audio &middot; Education</span>
+  <h1 class="fade">A lecture assistant that never phones home</h1>
+  <p class="sub fade" style="animation-delay:.15s">prof-ai listens to a live lecture, answers questions out loud from
+    the professor's own materials, and flags the concepts the lecture skipped. Every part of it runs on one machine in
+    the room. A Baylor professor uses it in class.</p>
+  <div class="badges fade" style="animation-delay:.28s">
+    <span class="badge hot"><b>Deployed</b> &middot; live classroom use</span>
+    <span class="badge"><b>$0</b> per query</span>
+    <span class="badge">No student audio leaves the room</span>
+    <span class="badge">5 screens, one local machine</span>
+  </div>
+</div></header>
+
+<section id="story"><div class="wrap">
+  <div class="shead rv"><span class="snum">01</span><span class="slabel">The problem</span><span class="srule"></span></div><h2 class="rv">The obvious version of this product is unadoptable</h2>
+  <p>Students fall behind in lectures for boring, fixable reasons. A term goes undefined. A step gets skipped. A
+  question feels too small to interrupt for.</p>
+  <p>An AI assistant could catch all of that. Pointing a cloud assistant at a live classroom means streaming students'
+  voices and a professor's unpublished slides to somebody else's servers, which is a non-starter for most instructors
+  and reasonably so. Add a per-query bill and a procurement process and the project dies before it starts.</p>
+  <p>Running everything locally removes all three objections at once. There is no bill, no vendor, and no data leaving
+  the room, which is why a professor could just start using it. That constraint drove every technical decision
+  underneath.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">02</span><span class="slabel">In class</span><span class="srule"></span></div><h2 class="rv">What it does while the lecture is running</h2>
+  <p>The live screen transcribes on-device with faster-whisper, keeps a running segment and word count, and lets the
+  professor hand the room over to the assistant mid-sentence. Answers are retrieved from the uploaded course materials
+  and spoken back through Piper.</p>
+  <figure class="fig rv">
+  <a href="../assets/profai-live.webp" target="_blank" rel="noopener"><img src="../assets/profai-live.webp" alt="Live lecture view: on-device transcript on the left, a spoken answer with the exact slide and page it came from on the right, and gaps being flagged while the lecture is still happening." loading="lazy"></a>
+  <figcaption>Live lecture view: on-device transcript on the left, a spoken answer with the exact slide and page it came from on the right, and gaps being flagged while the lecture is still happening.</figcaption>
+</figure>
+  <p>The panel on the right is the part I care about most. Every answer carries the document and location it was drawn
+  from, so a student can go read the source instead of trusting the machine. If retrieval finds nothing in the course
+  materials, the answer says so rather than reaching for the open internet.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">03</span><span class="slabel">The feature that justifies the build</span><span class="srule"></span></div><h2 class="rv">Gap analysis</h2>
+  <p>Transcription and Q&amp;A are table stakes. Gap analysis is the reason a professor keeps it open.</p>
+  <p>After class, the system compares the full transcript against the documents linked to that session and reports
+  where the lecture asserted something the reading treats as load-bearing. Each finding quotes the moment in the
+  transcript, timestamps it, and cites the source it should have matched. Concepts that were covered well get marked
+  covered, because a report that only ever complains gets ignored.</p>
+  <figure class="fig rv">
+  <a href="../assets/profai-gaps.webp" target="_blank" rel="noopener"><img src="../assets/profai-gaps.webp" alt="Gap analysis over 218 transcript segments against two linked documents. Findings are graded uncovered, partial or covered, each with the quoted lecture moment and the source it was checked against." loading="lazy"></a>
+  <figcaption>Gap analysis over 218 transcript segments against two linked documents. Findings are graded uncovered, partial or covered, each with the quoted lecture moment and the source it was checked against.</figcaption>
+</figure>
+  <p>Look at the first finding. The lecture said NMDA receptors "need depolarization" and never explained the
+  magnesium block that causes it. Students walked out with the rule and no mechanism. That is a two-minute fix at the
+  start of the next class, and it is invisible without something reading the transcript against the reading.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">04</span><span class="slabel">The rest of the surface</span><span class="srule"></span></div><h2 class="rv">Grounded chat, materials, modules</h2>
+  <p>Outside class hours the same corpus backs a research chat with a visible reasoning trace and source chips on every
+  answer.</p>
+  <figure class="fig rv">
+  <a href="../assets/profai-chat.webp" target="_blank" rel="noopener"><img src="../assets/profai-chat.webp" alt="Research chat. The reasoning trace is expandable, the answer is grounded in the uploaded materials, and the sources are named rather than implied." loading="lazy"></a>
+  <figcaption>Research chat. The reasoning trace is expandable, the answer is grounded in the uploaded materials, and the sources are named rather than implied.</figcaption>
+</figure>
+  <div class="figrow">
+    <figure class="fig rv">
+  <a href="../assets/profai-modules.webp" target="_blank" rel="noopener"><img src="../assets/profai-modules.webp" alt="Drag documents into modules, modules onto classes. Deleting a module removes references, not files." loading="lazy"></a>
+  <figcaption>Drag documents into modules, modules onto classes. Deleting a module removes references, not files.</figcaption>
+</figure>
+    <figure class="fig rv">
+  <a href="../assets/profai-materials.webp" target="_blank" rel="noopener"><img src="../assets/profai-materials.webp" alt="Ingested materials with per-file chunk counts, including audio transcripts from past sessions." loading="lazy"></a>
+  <figcaption>Ingested materials with per-file chunk counts, including audio transcripts from past sessions.</figcaption>
+</figure>
+  </div>
+  <div class="callout rv">
+    <span class="lbl">A note on these screenshots</span>
+    <p>These are the real interface, rendered from the repository and driven through its actual state machine and
+    WebSocket protocol. The course content is sample data. Real lecture material belongs to the professor and his
+    students, and it is not mine to publish.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">05</span><span class="slabel">Build notes</span><span class="srule"></span></div><h2 class="rv">What was actually hard</h2>
+  <ul class="plain">
+    <li><b>The state machine, not the models.</b> Lecture, awaiting, processing and speaking are distinct states with
+    different microphone behaviour. Getting the hand-off right so the assistant does not talk over the professor took
+    more iteration than the retrieval pipeline did.</li>
+    <li><b>Silence detection in a noisy room.</b> The gate that decides a question has finished adapts to ambient noise
+    with a slow moving average, because a fixed threshold that works in an empty room fails in a full one.</li>
+    <li><b>Designing next to the user.</b> I scoped this sitting beside the professor and changed it based on what
+    actually happened in class, which is how the gap-detection feature appeared at all. It was not in the original
+    plan.</li>
+    <li><b>Everything resident.</b> Whisper, the embedding store, the language model and the voice all stay loaded.
+    Cold-starting any of them mid-lecture is the difference between a tool and a distraction.</li>
+  </ul>
+  <div class="stack rv"><span>Python</span><span>faster-whisper</span><span>ChromaDB</span><span>Ollama</span><span>Piper TTS</span><span>FastAPI</span><span>React + TypeScript</span><span>WebSockets</span><span>RAG</span></div>
+  <div class="plinks">
+    <a class="repo strong" href="https://github.com/AdrianSeth1/prof-ai">Source on GitHub <span class="arw">&rarr;</span></a>
+  </div>
+</div></section>
+
+<section class="case-next"><div class="wrap row">
+  <div><span>Previous case</span><a href="../projects/verity.html">Verity, live on real capital &rarr;</a></div>
+  <div><span>Next case</span><a href="../projects/autoapply.html">AutoApply and its human gate &rarr;</a></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot-in">
+  <div class="foot-links">
+    <a href="https://github.com/AdrianSeth1">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
+    <a href="mailto:aryamaanseth@gmail.com">Email</a>
+  </div>
+  <div class="sig">&copy; 2026 Aryamaan Seth &middot; built in the open, limits included</div>
+</div></footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

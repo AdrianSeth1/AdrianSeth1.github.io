@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kitchen Remix — AI remodel previews, scoped honestly | Aryamaan Seth</title>
+<meta name="description" content="Local FLUX.1 Kontext remodel previews sorted into three tiers by how much the model has to invent.">
+<meta name="author" content="Aryamaan Seth">
+<meta property="og:title" content="Kitchen Remix — AI remodel previews, scoped honestly | Aryamaan Seth">
+<meta property="og:description" content="Local FLUX.1 Kontext remodel previews sorted into three tiers by how much the model has to invent.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://adrianseth1.github.io/projects/kitchen-remix.html">
+<meta property="og:image" content="https://adrianseth1.github.io/assets/kitchen-finishes.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kitchen Remix — AI remodel previews, scoped honestly | Aryamaan Seth">
+<meta name="twitter:description" content="Local FLUX.1 Kontext remodel previews sorted into three tiers by how much the model has to invent.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/assets/kitchen-finishes.webp">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://adrianseth1.github.io/projects/kitchen-remix.html">
+<meta name="theme-color" content="#06060b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="case">
+
+<a class="skip-link" href="#story">Skip to the case study</a>
+<div class="progress" id="prog"></div>
+<canvas id="neural" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../index.html#top" class="logo">Aryamaan <span class="alias">(Arya)</span> Seth<span class="dot"></span></a>
+    <ul id="menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#research">Research</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="top">
+
+<header class="case-hero"><div class="wrap">
+  <a class="backlink" href="../index.html#projects">&larr; All projects</a>
+  <span class="ptag">AI &middot; Image editing</span>
+  <h1 class="fade">Knowing where the model is guessing</h1>
+  <p class="sub fade" style="animation-delay:.15s">Kitchen Remix turns a photo of a real kitchen into previews of new
+    cabinets, counters, floors and paint, running FLUX.1 Kontext locally so family photos stay on the machine. Every
+    edit is sorted by how much the model has to invent, and the ones that invent get labelled.</p>
+  <div class="badges fade" style="animation-delay:.28s">
+    <span class="badge">Built for my parents' remodel</span>
+    <span class="badge"><b>3</b> honesty tiers</span>
+    <span class="badge">Fixed seed across A/B sets</span>
+    <span class="badge">Local, RTX 4090</span>
+  </div>
+</div></header>
+
+<section id="story"><div class="wrap">
+  <div class="shead rv"><span class="snum">01</span><span class="slabel">The problem</span><span class="srule"></span></div><h2 class="rv">A confident render of a wall that is not there</h2>
+  <p>Most people remodeling a kitchen cannot picture the result. Showroom samples do not show your kitchen with that
+  finish, and designer renders cost money and time.</p>
+  <p>AI image tools will cheerfully generate anything you ask for, including changes they have no basis for. That is
+  worse than no render, because it invites a real spending decision based on a guess. So the design question was never
+  what the model can do. It was what the model can do <em>reliably</em>, and how to keep everything else visibly
+  marked.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">02</span><span class="slabel">The answer</span><span class="srule"></span></div><h2 class="rv">Three tiers, sorted by how much gets invented</h2>
+  <table class="tbl">
+    <thead><tr><th>Tier</th><th>Edits</th><th>Why it can or cannot be trusted</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="tier ok">Core</span></td>
+        <td><b>Finish swaps</b>, A/B comparison, layered edits, object removal</td>
+        <td>None of these need information the photo does not already contain. Changing a surface, or filling in a wall
+        the model can already see. Treated as dependable previews.</td>
+      </tr>
+      <tr>
+        <td><span class="tier mid">Experimental</span></td>
+        <td><b>Moving an object</b>, opening or removing a wall</td>
+        <td>The model invents geometry it cannot know: the scale of a moved object, the room beyond a wall. Labelled
+        in-app as not dimensionally accurate. Directional feel, never measurement.</td>
+      </tr>
+      <tr>
+        <td><span class="tier low">Stretch</span></td>
+        <td><b>Structural change with supplied geometry</b> (depth map, edge image, rough blockout)</td>
+        <td>The honest way to do structural work. The layout comes from the user and the model only adds realism on
+        top. Scoped and stubbed, not yet wired in.</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>Showing where that line sits, and refusing to let the model cross it quietly, is the whole product.</p>
+  <figure class="fig rv">
+  <a href="../assets/kitchen-finishes.webp" target="_blank" rel="noopener"><img src="../assets/kitchen-finishes.webp" alt="Curated finish presets per surface, plus the contractor spec-sheet export. The preset library lives in JSON rather than code, so it grows without touching the pipeline." loading="lazy"></a>
+  <figcaption>Curated finish presets per surface, plus the contractor spec-sheet export. The preset library lives in JSON rather than code, so it grows without touching the pipeline.</figcaption>
+</figure>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">03</span><span class="slabel">Build notes</span><span class="srule"></span></div><h2 class="rv">The decisions that made comparison fair</h2>
+  <ul class="plain">
+    <li><b>One seed across an A/B set.</b> Only the instruction changes between variants, so the composition holds
+    still and you are comparing finishes rather than comparing two different kitchens.</li>
+    <li><b>The model loads once and stays in VRAM.</b> Reloading per request is slow and risks running out of memory.
+    Inference runs in a worker thread so the API never blocks.</li>
+    <li><b>Presets as data, not code.</b> Two JSON files hold the curated edit instructions, which is why a new finish
+    is a one-line change.</li>
+    <li><b>The server boots without the ML stack.</b> It reports <code>model_loaded: false</code> and stays testable
+    on a machine with no GPU, which is how the interface got built and reviewed away from the 4090.</li>
+    <li><b>An export that a contractor can hold.</b> A one-page spec sheet from the chosen previews, because the
+    output of this product is a conversation with a human who does the actual work.</li>
+  </ul>
+  <div class="stack rv"><span>FLUX.1 Kontext</span><span>React + Vite</span><span>FastAPI</span><span>Pydantic</span><span>CUDA</span><span>Tailwind</span></div>
+  <div class="callout rv">
+    <span class="lbl">What is missing from this page</span>
+    <p>A real before-and-after. The renders live on the machine with the GPU and the photos are of my parents' actual
+    house, so what you see here is the interface rather than the output. This is the one project where the picture is
+    the product, and the picture is not mine to publish.</p>
+  </div>
+  <div class="plinks">
+    <a class="repo strong" href="https://github.com/AdrianSeth1/Kitchen-remix">Source on GitHub <span class="arw">&rarr;</span></a>
+  </div>
+</div></section>
+
+<section class="case-next"><div class="wrap row">
+  <div><span>Previous case</span><a href="../projects/apoapsis.html">Apoapsis, where I broke my own claim &rarr;</a></div>
+  <div><span>Next case</span><a href="../projects/verity.html">Verity, live on real capital &rarr;</a></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot-in">
+  <div class="foot-links">
+    <a href="https://github.com/AdrianSeth1">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
+    <a href="mailto:aryamaanseth@gmail.com">Email</a>
+  </div>
+  <div class="sig">&copy; 2026 Aryamaan Seth &middot; built in the open, limits included</div>
+</div></footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>

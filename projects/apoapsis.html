@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apoapsis Harness — verification layer for coding agents | Aryamaan Seth</title>
+<meta name="description" content="A harness where models propose and the system controls verification. Then I measured it and found six of seven completed slices could not locate their own evidence.">
+<meta name="author" content="Aryamaan Seth">
+<meta property="og:title" content="Apoapsis Harness — verification layer for coding agents | Aryamaan Seth">
+<meta property="og:description" content="A harness where models propose and the system controls verification. Then I measured it and found six of seven completed slices could not locate their own evidence.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://adrianseth1.github.io/projects/apoapsis.html">
+<meta property="og:image" content="https://adrianseth1.github.io/assets/apoapsis-overview.webp">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apoapsis Harness — verification layer for coding agents | Aryamaan Seth">
+<meta name="twitter:description" content="A harness where models propose and the system controls verification. Then I measured it and found six of seven completed slices could not locate their own evidence.">
+<meta name="twitter:image" content="https://adrianseth1.github.io/assets/apoapsis-overview.webp">
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="canonical" href="https://adrianseth1.github.io/projects/apoapsis.html">
+<meta name="theme-color" content="#06060b">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body class="case">
+
+<a class="skip-link" href="#story">Skip to the case study</a>
+<div class="progress" id="prog"></div>
+<canvas id="neural" aria-hidden="true"></canvas>
+<div class="veil" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nav-in">
+    <a href="../index.html#top" class="logo">Aryamaan <span class="alias">(Arya)</span> Seth<span class="dot"></span></a>
+    <ul id="menu">
+      <li><a href="../index.html#projects">Projects</a></li>
+      <li><a href="../index.html#research">Research</a></li>
+      <li><a href="../index.html#experience">Experience</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu" aria-controls="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<main id="top">
+
+<header class="case-hero"><div class="wrap">
+  <a class="backlink" href="../index.html#projects">&larr; All projects</a>
+  <span class="ptag">AI &middot; Developer tools &middot; Evaluation</span>
+  <h1 class="fade">I ran my own harness and it failed its own central claim</h1>
+  <p class="sub fade" style="animation-delay:.15s">Apoapsis is a substrate for coding agents. Models propose; the
+    harness controls files, commands, verification and completion. Then I measured it properly and found that six of
+    seven completed work units could not point at the evidence that justified completing them.</p>
+  <div class="badges fade" style="animation-delay:.28s">
+    <span class="badge hot">Findings published</span>
+    <span class="badge"><b>22</b> containment probes, 0 breaches</span>
+    <span class="badge"><b>6 of 7</b> slices could not locate their evidence</span>
+    <span class="badge">Local and frontier routing</span>
+  </div>
+</div></header>
+
+<section id="story"><div class="wrap">
+  <div class="shead rv"><span class="snum">01</span><span class="slabel">The premise</span><span class="srule"></span></div><h2 class="rv">A green tick has to be traceable to a run</h2>
+  <p>Coding agents are confident. They report success on work that does not pass, and the reporting layer is usually
+  the model's own summary of what it thinks it did. Apoapsis inverts that. The model proposes changes and nothing
+  else. Files, commands, verification, retries, state transitions and the decision that work is complete all belong to
+  the harness, recorded in SQLite and Git.</p>
+  <p>The design claim is one sentence: a completion mark must be traceable to a verification run the harness performed
+  itself. Everything in the product exists to make that checkable.</p>
+  <figure class="fig rv">
+  <a href="../assets/apoapsis-overview.webp" target="_blank" rel="noopener"><img src="../assets/apoapsis-overview.webp" alt="The local control surface. Task counts, model and sandbox configuration reported as configuration rather than as a readiness claim, and the authority boundary stated in the corner." loading="lazy"></a>
+  <figcaption>The local control surface. Task counts, model and sandbox configuration reported as configuration rather than as a readiness claim, and the authority boundary stated in the corner.</figcaption>
+</figure>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">02</span><span class="slabel">The record</span><span class="srule"></span></div><h2 class="rv">Specification before code</h2>
+  <p>Every task starts as a specification with the user's exact words preserved next to a deterministic interpretation
+  and a verification method. Hard constraints stay verbatim, because paraphrasing a constraint is how you lose it.
+  Acceptance criteria carry the check that would prove them.</p>
+  <figure class="fig rv">
+  <a href="../assets/apoapsis-task.webp" target="_blank" rel="noopener"><img src="../assets/apoapsis-task.webp" alt="A task record. Verbatim constraint, deterministic interpretation, verification intent, and the acceptance criterion with its proposed check." loading="lazy"></a>
+  <figcaption>A task record. Verbatim constraint, deterministic interpretation, verification intent, and the acceptance criterion with its proposed check.</figcaption>
+</figure>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">03</span><span class="slabel">The measurement</span><span class="srule"></span></div><h2 class="rv">What happened when I actually looked</h2>
+  <p>In August I ran three live attempts at one work slice while preparing a demo, then went back and read the
+  evidence for the seven slices before it. I was not looking for defects. I found this:</p>
+  <table class="tbl">
+    <thead><tr><th>Slice</th><th>Status</th><th>Evidence integrity</th></tr></thead>
+    <tbody>
+      <tr><td><b>SLICE-001 &hellip; 006</b></td><td>complete</td><td><span class="tier low">missing</span></td></tr>
+      <tr><td><b>SLICE-007</b></td><td>complete</td><td><span class="tier ok">intact</span></td></tr>
+      <tr><td><b>SLICE-008</b></td><td>human review</td><td><span class="tier low">missing</span></td></tr>
+    </tbody>
+  </table>
+  <p>Six of seven promoted slices could no longer point at the evidence that justified promoting them. That is the one
+  thing the product exists to do. The harness was honest about it, which is the reporting layer working as designed,
+  and an evidence trail that reports missing for 86% of completed work is still not an evidence trail.</p>
+  <div class="callout warn rv">
+    <span class="lbl">The part I want you to notice</span>
+    <p>SLICE-007, the one the demo was built on, is the only intact one. That was luck. I picked it for its verdict
+    text before I looked at integrity. I wrote that down in the findings document rather than quietly shipping the
+    demo, because a demo standing on the single healthy sample is exactly the result that needs a footnote.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">04</span><span class="slabel">What worked</span><span class="srule"></span></div><h2 class="rv">Recorded because it is easy to lose in a defect list</h2>
+  <div class="metrics"><div class="metric rv"><div class="v">22</div><div class="k">containment probes, 0 breaches</div></div><div class="metric rv"><div class="v">26</div><div class="k">tools on the wire, exact match</div></div><div class="metric rv"><div class="v">761</div><div class="k">changed lines admitted</div></div><div class="metric rv"><div class="v">1.19M</div><div class="k">tokens served from prefix cache</div></div></div>
+  <ul class="plain">
+    <li><b>The checkpoint said CONTINUE on 761 lines of plausible code</b> because the unit-test witness was not
+    current and fingerprint-bound. The harness refusing to call plausible code done is the behaviour I built it
+    for.</li>
+    <li><b>The relay refused to score truncated output</b> rather than accept partial responses, which is why the run
+    surfaces as an honest escalation instead of a false completion.</li>
+    <li><b>The stale-source guard fired on me.</b> It refused to run at all with uncommitted changes in the product
+    code: the authority boundary defending itself against its own author.</li>
+    <li><b>A 4.5&times; measurement confound found and named.</b> Same model, same flags, 9&ndash;14 tokens/sec with a
+    busy desktop against 42.6 on a quiet one. Any benchmark that ignores that is measuring desktop load.</li>
+  </ul>
+</div></section>
+
+<section><div class="wrap">
+  <div class="shead rv"><span class="snum">05</span><span class="slabel">Why this is the case study I lead with</span><span class="srule"></span></div><h2 class="rv">Being wrong on the record</h2>
+  <p>It would have been easy to write a page saying Apoapsis routes work between local and frontier models, keeps a
+  full audit trail, and beats an unharnessed local model. All of that is true.</p>
+  <p>It would also have skipped the finding that matters. I built a system whose entire argument is verifiable
+  completion, measured it, and found the verification trail broken across most of its own history. Then I ordered the
+  fix ahead of the roadmap priorities I had already written, and recorded that one of the six could be genuinely
+  absent evidence and the other five merely unlinked, because the current message cannot tell those apart and
+  pretending it can would be a second error.</p>
+  <p>If you are hiring someone to evaluate AI systems, that is the work sample. Anyone can report a green run.</p>
+  <div class="stack rv"><span>Python</span><span>SQLite</span><span>Git worktrees</span><span>Ollama</span><span>llama.cpp</span><span>ripgrep</span><span>Docker</span><span>Evaluation design</span></div>
+  <div class="callout rv">
+    <span class="lbl">On these screenshots</span>
+    <p>The real interface, running from the repository against the example project bundled with it, with a seeded task
+    history. The findings and the numbers in section 03 and 04 are from actual runs on my own machine.</p>
+  </div>
+  <div class="plinks">
+    <a class="repo strong" href="https://github.com/AdrianSeth1/apoapsis-harness">Source on GitHub <span class="arw">&rarr;</span></a>
+  </div>
+</div></section>
+
+<section class="case-next"><div class="wrap row">
+  <div><span>Previous case</span><a href="../projects/autoapply.html">AutoApply and its human gate &rarr;</a></div>
+  <div><span>Next case</span><a href="../projects/kitchen-remix.html">Kitchen Remix, scoped to what is true &rarr;</a></div>
+</div></section>
+
+</main>
+
+<footer><div class="wrap foot-in">
+  <div class="foot-links">
+    <a href="https://github.com/AdrianSeth1">GitHub</a>
+    <a href="https://www.linkedin.com/in/aryamaanseth/">LinkedIn</a>
+    <a href="mailto:aryamaanseth@gmail.com">Email</a>
+  </div>
+  <div class="sig">&copy; 2026 Aryamaan Seth &middot; built in the open, limits included</div>
+</div></footer>
+<script src="../assets/site.js" defer></script>
+</body>
+</html>
